@@ -2,7 +2,7 @@ name: Weekly BNI Visitor Report
 
 on:
   schedule:
-    - cron: '30 12 * * 1'   # Every Monday at 8:30 AM EST (12:30 UTC)
+    - cron: '30 13 * * 4'   # Every Thursday at 8:30 AM EST (13:30 UTC)
   workflow_dispatch:          # Run manually anytime from the Actions tab
 
 jobs:
