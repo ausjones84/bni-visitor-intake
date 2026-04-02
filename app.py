@@ -44,12 +44,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-col_logo, col_title = st.columns([1, 4])
-with col_logo:
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/BNI_Logo.svg/200px-BNI_Logo.svg.png", width=90)
-with col_title:
-    st.markdown("## Welcome to Our BNI Chapter!")
-    st.caption("Business Network International — Where Referrals Are Our Business")
+st.markdown("""
+<div style='text-align:center; padding: 10px 0 4px 0;'>
+    <div style='display:inline-block; background:#C8102E; color:white; font-size:2.2em; font-weight:900; padding:6px 22px; border-radius:8px; letter-spacing:3px; font-family:Arial,sans-serif;'>BNI</div>
+    <h1 style='color:#C8102E; margin:10px 0 2px 0; font-size:1.9em;'>Welcome to Our BNI Chapter!</h1>
+    <p style='color:#666; margin:0; font-size:1em;'>Business Network International — Where Referrals Are Our Business</p>
+</div>
+""", unsafe_allow_html=True)
 
 st.markdown("""
 <div class='intro-box'>
