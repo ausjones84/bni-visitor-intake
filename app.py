@@ -14,236 +14,144 @@ st.set_page_config(
     layout="centered"
 )
 
-# ── Session state ────────────────────────────────────────────────────────────
 if "page" not in st.session_state:
     st.session_state["page"] = "landing"
 
-# ── Global CSS ───────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@keyframes fadeInDown {
-    from { opacity:0; transform:translateY(-16px); }
-    to   { opacity:1; transform:translateY(0); }
+@keyframes fadeInDown { from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:translateY(0);} }
+@keyframes fadeInUp   { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(200,16,46,.28);}50%{box-shadow:0 0 0 8px rgba(200,16,46,0);} }
+[data-testid="stAppViewContainer"]{background:#fff;}
+.hero-wrap{animation:fadeInDown .7s ease both;}
+.stButton>button{
+  background:linear-gradient(135deg,#C8102E 0%,#a00d24 100%) !important;
+  color:white !important;font-weight:700 !important;border-radius:8px !important;
+  padding:.7em 2em !important;font-size:1.05em !important;width:100% !important;
+  border:none !important;margin-top:8px !important;
+  animation:pulse 2.4s infinite !important;transition:transform .12s,opacity .12s !important;
 }
-@keyframes fadeInUp {
-    from { opacity:0; transform:translateY(16px); }
-    to   { opacity:1; transform:translateY(0); }
-}
-@keyframes pulse {
-    0%,100% { box-shadow:0 0 0 0 rgba(200,16,46,.28); }
-    50%      { box-shadow:0 0 0 8px rgba(200,16,46,0); }
-}
-[data-testid="stAppViewContainer"] { background:#fff; }
-.hero-wrap { animation:fadeInDown .7s ease both; }
-/* All Streamlit buttons red */
-.stButton > button {
-    background:linear-gradient(135deg,#C8102E 0%,#a00d24 100%) !important;
-    color:white !important; font-weight:700 !important;
-    border-radius:8px !important; padding:.7em 2em !important;
-    font-size:1.05em !important; width:100% !important;
-    border:none !important; margin-top:8px !important;
-    animation:pulse 2.4s infinite !important;
-    transition:transform .12s,opacity .12s !important;
-}
-.stButton > button:hover { transform:translateY(-2px) !important; opacity:.93 !important; }
-/* Landing cards */
-.land-card {
-    border-radius:16px; padding:2em 1.4em; text-align:center;
-    background:#fff; box-shadow:0 6px 28px rgba(0,0,0,.09);
-    border:2.5px solid transparent;
-    animation:fadeInUp .8s ease both;
-    transition:transform .22s,box-shadow .22s;
-}
-.land-card:hover { transform:translateY(-5px); box-shadow:0 14px 40px rgba(0,0,0,.13); }
-.land-visitor { border-color:#C8102E !important; }
-.land-member  { border-color:#1a56db !important; }
-/* Intro boxes */
-.intro-box {
-    background:#fff5f5; border-left:5px solid #C8102E;
-    padding:1em 1.5em; border-radius:0 8px 8px 0;
-    margin-bottom:1em; animation:fadeInDown .9s ease both;
-}
-.tip-box {
-    background:linear-gradient(135deg,#fffbf0,#fff8e1);
-    border-left:4px solid #f39c12; border-radius:0 8px 8px 0;
-    padding:.9em 1.2em; margin:.5em 0 1.2em; font-size:.97em;
-}
-.success-card {
-    background:linear-gradient(135deg,#f0fff4,#e8f8ee);
-    border:1.5px solid #27ae60; border-radius:12px;
-    padding:1.5em; margin-top:1em; animation:fadeInDown .6s ease both;
-}
-/* Form headings */
-h2 { color:#C8102E !important; border-bottom:2px solid #f0f0f0; padding-bottom:6px; }
-/* Tabs */
-div[data-testid="stTabs"] button[data-baseweb="tab"] {
-    font-size:1.05em !important; font-weight:600 !important; padding:10px 24px !important;
-}
-/* Footer bar */
-.footer-bar {
-    text-align:center; margin-top:2em; padding:1em;
-    background:#f8f9fa; border-radius:10px; font-size:.85em; color:#888;
-}
+.stButton>button:hover{transform:translateY(-2px) !important;opacity:.93 !important;}
+.land-card{border-radius:16px;padding:2em 1.4em;text-align:center;background:#fff;
+  box-shadow:0 6px 28px rgba(0,0,0,.09);border:2.5px solid transparent;
+  animation:fadeInUp .8s ease both;transition:transform .22s,box-shadow .22s;}
+.land-card:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(0,0,0,.13);}
+.land-visitor{border-color:#C8102E !important;}
+.land-member{border-color:#1a56db !important;}
+.intro-box{background:#fff5f5;border-left:5px solid #C8102E;padding:1em 1.5em;
+  border-radius:0 8px 8px 0;margin-bottom:1em;animation:fadeInDown .9s ease both;}
+.tip-box{background:linear-gradient(135deg,#fffbf0,#fff8e1);border-left:4px solid #f39c12;
+  border-radius:0 8px 8px 0;padding:.9em 1.2em;margin:.5em 0 1.2em;font-size:.97em;}
+.success-card{background:linear-gradient(135deg,#f0fff4,#e8f8ee);border:1.5px solid #27ae60;
+  border-radius:12px;padding:1.5em;margin-top:1em;animation:fadeInDown .6s ease both;}
+h2{color:#C8102E !important;border-bottom:2px solid #f0f0f0;padding-bottom:6px;}
+div[data-testid="stTabs"] button[data-baseweb="tab"]{font-size:1.05em !important;font-weight:600 !important;padding:10px 24px !important;}
+.footer-bar{text-align:center;margin-top:2em;padding:1em;background:#f8f9fa;border-radius:10px;font-size:.85em;color:#888;}
 </style>
 """, unsafe_allow_html=True)
 
-# ── Shared BNI Hero ──────────────────────────────────────────────────────────
 st.markdown("""
 <div class='hero-wrap' style='text-align:center;padding:10px 0 4px;'>
   <div style='display:inline-block;background:linear-gradient(135deg,#C8102E 0%,#8b0000 100%);
        color:white;font-size:1.6em;font-weight:900;padding:8px 28px;border-radius:10px;
        letter-spacing:3px;font-family:Arial,sans-serif;box-shadow:0 4px 16px rgba(200,16,46,.35);'>BNI Leaders FTL</div>
-  <h2 style='color:#C8102E;margin:8px 0 2px;font-size:1.3em;font-weight:600;letter-spacing:1px;'>Chapter Hub</h2>
+  <h2 style='color:#C8102E;margin:8px 0 2px;font-size:1.3em;font-weight:600;letter-spacing:1px;border:none !important;'>Chapter Hub</h2>
   <p style='color:#888;margin:0;font-size:.95em;'>Business Network International &mdash; Where Referrals Are Our Business</p>
 </div>
 """, unsafe_allow_html=True)
 
-# ═══════════════════════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════
 # LANDING PAGE
-# ═══════════════════════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════
 if st.session_state["page"] == "landing":
-    st.markdown("""
-    <div style='text-align:center;margin:1.2em 0 1.8em;'>
-      <p style='font-size:1.1em;color:#555;max-width:520px;margin:0 auto;'>
-        Welcome! Choose your role to get started.
-      </p>
-    </div>
-    """, unsafe_allow_html=True)
-
+    st.markdown("<div style='text-align:center;margin:1.2em 0 1.8em;'><p style='font-size:1.1em;color:#555;max-width:520px;margin:0 auto;'>Welcome! Choose your role to get started.</p></div>", unsafe_allow_html=True)
     col_a, col_b = st.columns(2, gap="large")
-
     with col_a:
         st.markdown("""
         <div class='land-card land-visitor'>
           <div style='font-size:3.2em;margin-bottom:.3em;'>&#128075;</div>
-          <h2 style='color:#C8102E !important;border:none;margin:0 0 .5em;font-size:1.35em;'>Visitor Sign-In</h2>
-          <p style='color:#666;font-size:.93em;margin-bottom:1.2em;'>
-            Attending BNI today as a guest? Sign in here and connect with our members!
-          </p>
-          <div style='background:#C8102E;color:white;border-radius:8px;padding:9px 0;
-               font-weight:700;font-size:.95em;letter-spacing:.5px;'>
-            &#128204;&nbsp; Guest Sign-In Form
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
+          <h2 style='color:#C8102E !important;border:none !important;margin:0 0 .5em;font-size:1.35em;'>Visitor Sign-In</h2>
+          <p style='color:#666;font-size:.93em;margin-bottom:1.2em;'>Attending BNI today as a guest? Sign in here and connect with our members!</p>
+          <div style='background:#C8102E;color:white;border-radius:8px;padding:9px 0;font-weight:700;font-size:.95em;'>&#128204;&nbsp; Guest Sign-In Form</div>
+        </div>""", unsafe_allow_html=True)
         if st.button("Enter as Visitor", key="btn_v"):
             st.session_state["page"] = "visitor"
             st.rerun()
-
     with col_b:
         st.markdown("""
         <div class='land-card land-member'>
           <div style='font-size:3.2em;margin-bottom:.3em;'>&#127908;</div>
-          <h2 style='color:#1a56db !important;border:none;margin:0 0 .5em;font-size:1.35em;'>Meeting Recorder</h2>
-          <p style='color:#666;font-size:.93em;margin-bottom:1.2em;'>
-            BNI member? Launch the live recorder to track TYFCB, referrals &amp; testimonials in real time.
-          </p>
-          <div style='background:#1a56db;color:white;border-radius:8px;padding:9px 0;
-               font-weight:700;font-size:.95em;letter-spacing:.5px;'>
-            &#127908;&nbsp; Open Meeting Recorder
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
+          <h2 style='color:#1a56db !important;border:none !important;margin:0 0 .5em;font-size:1.35em;'>Meeting Recorder</h2>
+          <p style='color:#666;font-size:.93em;margin-bottom:1.2em;'>BNI member? Launch the live scoreboard recorder — tracks TYFCB, referrals &amp; testimonials in real time.</p>
+          <div style='background:#1a56db;color:white;border-radius:8px;padding:9px 0;font-weight:700;font-size:.95em;'>&#127908;&nbsp; Open Meeting Recorder</div>
+        </div>""", unsafe_allow_html=True)
         if st.button("Open Meeting Recorder", key="btn_m"):
             st.session_state["page"] = "recorder"
             st.rerun()
+    st.markdown("<div class='footer-bar'>&#128274; Info stored securely in your chapter's Google Sheet.&nbsp;|&nbsp; Powered by <a href='https://mrceesai.com' style='color:#C8102E;'>MrCeesAI</a> &mdash; Austin Jones</div>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class='footer-bar'>
-      &#128274; Info stored securely in your chapter's private Google Sheet.&nbsp;|&nbsp;
-      Powered by <a href='https://mrceesai.com' style='color:#C8102E;'>MrCeesAI</a> &mdash; Austin Jones
-    </div>
-    """, unsafe_allow_html=True)
 
-# ═══════════════════════════════════════════════════════════════════════════
-# VISITOR SIGN-IN PAGE
-# ═══════════════════════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════
+# VISITOR PAGE
+# ══════════════════════════════════════════════════════
 elif st.session_state["page"] == "visitor":
-
     if st.button("\u2190 Back to Home", key="back_v"):
         st.session_state["page"] = "landing"
         st.rerun()
 
-    # Email helpers
-    def send_visitor_welcome(first_name, visitor_email, business_name, interest_level, gmail_user, gmail_pass):
+    def send_visitor_welcome(fn, ve, bn, il, gu, gp):
         try:
             msg = MIMEMultipart("alternative")
-            msg["Subject"] = f"Great connecting with you at BNI, {first_name}!"
-            msg["From"] = gmail_user
-            msg["To"] = visitor_email
-            html_body = f"""
-            <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;">
-              <div style="background:linear-gradient(135deg,#C8102E 0%,#8b0000 100%);color:white;padding:20px 24px;border-radius:10px 10px 0 0;">
-                <div style="font-size:2em;font-weight:900;letter-spacing:3px;">BNI</div>
-                <h2 style="margin:8px 0 0;color:white !important;">Thanks for Visiting, {first_name}!</h2>
+            msg["Subject"] = f"Great connecting with you at BNI, {fn}!"
+            msg["From"] = gu
+            msg["To"] = ve
+            html = f"""<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;">
+              <div style="background:linear-gradient(135deg,#C8102E,#8b0000);color:white;padding:20px 24px;border-radius:10px 10px 0 0;">
+                <div style="font-size:1.8em;font-weight:900;letter-spacing:3px;">BNI Leaders FTL</div>
+                <h2 style="margin:8px 0 0;color:white !important;">Thanks for Visiting, {fn}!</h2>
               </div>
               <div style="background:#f9f9f9;padding:24px;border-radius:0 0 10px 10px;">
-                <p>Hi {first_name},</p>
-                <p>Thank you for joining us at BNI! A chapter member will reach out shortly.</p>
-                <p><strong>Your business:</strong> {business_name}<br>
-                <strong>Your interest level:</strong> {interest_level}</p>
+                <p>Hi {fn}, thank you for joining us at BNI! A chapter member will reach out shortly.</p>
+                <p><strong>Business:</strong> {bn} &mdash; <strong>Interest:</strong> {il}</p>
                 <p>We hope to see you again next week!</p>
-                <hr style="border:none;border-top:1px solid #e0e0e0;margin:20px 0;">
-                <p style="font-size:.85em;color:#888;">Need AI automation for your business?
-                  <a href="https://mrceesai.com" style="color:#C8102E;">Austin Jones at MrCeesAI</a>
-                  helps small businesses save time and grow revenue.
-                </p>
-              </div>
-            </div>"""
-            msg.attach(MIMEText(html_body, "html"))
+                <p style="font-size:.85em;color:#888;">Need AI automation? <a href="https://mrceesai.com" style="color:#C8102E;">MrCeesAI by Austin Jones</a></p>
+              </div></div>"""
+            msg.attach(MIMEText(html, "html"))
             with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
-                s.login(gmail_user, gmail_pass)
-                s.sendmail(gmail_user, visitor_email, msg.as_string())
+                s.login(gu, gp); s.sendmail(gu, ve, msg.as_string())
             return True
-        except Exception:
-            return False
+        except Exception: return False
 
-    def send_hot_lead(first_name, last_name, visitor_email, phone, business_name, industry,
-                      elevator_pitch, interest_level, gmail_user, gmail_pass, report_email):
+    def send_hot_lead(fn, ln, ve, ph, bn, ind, ep, il, gu, gp, re_):
         try:
             msg = MIMEMultipart("alternative")
-            msg["Subject"] = f"BNI HOT LEAD \u2014 {first_name} {last_name} ({business_name})"
-            msg["From"] = gmail_user
-            msg["To"] = report_email
-            html_body = f"""
-            <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;">
+            msg["Subject"] = f"BNI HOT LEAD \u2014 {fn} {ln} ({bn})"
+            msg["From"] = gu; msg["To"] = re_
+            html = f"""<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;">
               <div style="background:#27ae60;color:white;padding:16px 24px;border-radius:10px 10px 0 0;">
-                <h2 style="margin:0;color:white !important;">&#128293; HOT BNI LEAD</h2>
-                <p style="margin:4px 0 0;opacity:.9;">Interest: <strong>{interest_level}</strong></p>
-              </div>
+                <h2 style="margin:0;color:white !important;">&#128293; HOT BNI LEAD &mdash; {il}</h2></div>
               <div style="background:#f0fff4;padding:24px;border-radius:0 0 10px 10px;border:2px solid #27ae60;">
-                <p><strong>{first_name} {last_name}</strong> &mdash; {business_name} ({industry})</p>
-                <p>Email: <a href="mailto:{visitor_email}">{visitor_email}</a>
-                   &nbsp;|&nbsp; Phone: {phone or "N/A"}</p>
-                <p><em>"{elevator_pitch}"</em></p>
-                <p style="color:#27ae60;font-weight:700;">Reach out NOW!</p>
-              </div>
-            </div>"""
-            msg.attach(MIMEText(html_body, "html"))
+                <p><strong>{fn} {ln}</strong> &mdash; {bn} ({ind})</p>
+                <p>Email: <a href="mailto:{ve}">{ve}</a> | Phone: {ph or "N/A"}</p>
+                <p><em>"{ep}"</em></p>
+                <p style="color:#27ae60;font-weight:700;">Reach out NOW!</p></div></div>"""
+            msg.attach(MIMEText(html, "html"))
             with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
-                s.login(gmail_user, gmail_pass)
-                s.sendmail(gmail_user, report_email, msg.as_string())
+                s.login(gu, gp); s.sendmail(gu, re_, msg.as_string())
             return True
-        except Exception:
-            return False
+        except Exception: return False
 
-    # BNI Tips
     BNI_TIPS = [
-        "&#128161; <strong>BNI Tip:</strong> The most successful BNI members give referrals before expecting to receive them.",
-        "&#128161; <strong>BNI Tip:</strong> Your 60-second pitch should be crystal-clear &mdash; the easier you make it to refer you, the more referrals you get!",
-        "&#128161; <strong>BNI Tip:</strong> BNI members generate an average of $50,000+ in new business per year through referrals.",
-        "&#128161; <strong>BNI Tip:</strong> Givers Gain&#174; &mdash; members who give the most referrals consistently receive the most in return.",
-        "&#128161; <strong>BNI Tip:</strong> Each member holds one seat per profession &mdash; securing your seat locks out competitors!",
-        "&#128161; <strong>BNI Tip:</strong> 1-2-1 meetings with fellow members are the #1 driver of strong referral relationships.",
+        "&#128161; <strong>BNI Tip:</strong> The most successful members give referrals before expecting to receive them.",
+        "&#128161; <strong>BNI Tip:</strong> Your 60-second pitch should be crystal-clear &mdash; the easier to refer you, the more referrals you get!",
+        "&#128161; <strong>BNI Tip:</strong> BNI members generate an average of $50,000+ in new business per year.",
+        "&#128161; <strong>BNI Tip:</strong> Givers Gain&#174; &mdash; members who give the most referrals receive the most in return.",
+        "&#128161; <strong>BNI Tip:</strong> Each member holds one seat &mdash; securing yours locks out competitors!",
+        "&#128161; <strong>BNI Tip:</strong> 1-2-1 meetings are the #1 driver of strong referral relationships.",
         "&#128161; <strong>BNI Tip:</strong> The average BNI chapter passes over $1 million in referrals each year.",
     ]
-    st.markdown(f"""
-    <div class='intro-box'>
-      <strong>Thanks for visiting today!</strong> Take 2 minutes to fill out this quick form
-      and our members will follow up to help grow your business.
-    </div>
-    <div class='tip-box'>{random.choice(BNI_TIPS)}</div>
-    """, unsafe_allow_html=True)
+    st.markdown(f"""<div class='intro-box'><strong>Thanks for visiting today!</strong> Take 2 minutes to fill out this quick form and our members will follow up to help grow your business.</div>
+    <div class='tip-box'>{random.choice(BNI_TIPS)}</div>""", unsafe_allow_html=True)
 
     with st.form("visitor_form", clear_on_submit=True):
         st.markdown("## Contact Information")
@@ -254,41 +162,32 @@ elif st.session_state["page"] == "visitor":
             phone      = st.text_input("Phone Number", placeholder="(555) 555-5555")
         with c2:
             last_name  = st.text_input("Last Name *", placeholder="Smith")
-            city       = st.text_input("City / Area", placeholder="Atlanta, GA")
+            city       = st.text_input("City / Area", placeholder="Fort Lauderdale, FL")
             website    = st.text_input("Website", placeholder="www.yoursite.com")
-
         st.markdown("## Social Media")
         c3, c4 = st.columns(2)
         with c3:
-            linkedin  = st.text_input("LinkedIn",  placeholder="linkedin.com/in/yourname")
+            linkedin  = st.text_input("LinkedIn", placeholder="linkedin.com/in/yourname")
             instagram = st.text_input("Instagram", placeholder="@yourhandle")
         with c4:
-            facebook  = st.text_input("Facebook",  placeholder="facebook.com/yourpage")
+            facebook  = st.text_input("Facebook", placeholder="facebook.com/yourpage")
             twitter_x = st.text_input("X / Twitter", placeholder="@yourhandle")
-
         st.markdown("## Your Business")
         business_name = st.text_input("Business Name *", placeholder="Smith Consulting LLC")
         industry = st.selectbox("Industry / Profession *", [
-            "Select one...", "Accounting / Finance", "Attorney / Legal", "Banking / Lending",
-            "Chiropractor / Health", "Construction / Contracting", "Consulting / Coaching",
-            "Digital Marketing", "Financial Planning", "Health & Wellness", "Home Services / Remodeling",
-            "HR / Staffing", "Insurance", "IT / Technology / Cybersecurity", "Mortgage / Real Estate",
-            "Photography / Videography", "Printing / Signage / Design", "Restaurant / Catering / Food",
-            "Retail / E-Commerce", "Travel / Hospitality", "Other"
-        ])
+            "Select one...","Accounting / Finance","Attorney / Legal","Banking / Lending",
+            "Chiropractor / Health","Construction / Contracting","Consulting / Coaching",
+            "Digital Marketing","Financial Planning","Health & Wellness","Home Services / Remodeling",
+            "HR / Staffing","Insurance","IT / Technology / Cybersecurity","Mortgage / Real Estate",
+            "Photography / Videography","Printing / Signage / Design","Restaurant / Catering / Food",
+            "Retail / E-Commerce","Travel / Hospitality","Other"])
         other_industry = ""
         if industry == "Other":
             other_industry = st.text_input("Please describe your profession *")
-        elevator_pitch = st.text_area(
-            "In one sentence: what do you do and who do you help? *",
-            placeholder="e.g. I help small business owners protect assets with affordable insurance plans.",
-            height=80
-        )
-        years_in_biz = st.select_slider(
-            "How long have you been in business?",
-            options=["Less than 1 year","1-2 years","3-5 years","6-10 years","10+ years"]
-        )
-
+        elevator_pitch = st.text_area("In one sentence: what do you do and who do you help? *",
+            placeholder="e.g. I help small business owners protect assets with affordable insurance plans.", height=80)
+        years_in_biz = st.select_slider("How long have you been in business?",
+            options=["Less than 1 year","1-2 years","3-5 years","6-10 years","10+ years"])
         st.markdown("## Networking & Referrals")
         c5, c6 = st.columns(2)
         with c5:
@@ -298,34 +197,28 @@ elif st.session_state["page"] == "visitor":
             top_clients = st.text_area("Top 3 types of clients / industries you serve?",
                 placeholder="e.g. Real estate agents, small business owners, HR managers...", height=90)
         how_heard  = st.selectbox("How did you hear about our chapter?", [
-            "Select one...", "Invited by a member", "BNI website / Find a Chapter",
-            "Social media", "Google search", "Friend / colleague", "Attended before", "Other"
-        ])
+            "Select one...","Invited by a member","BNI website / Find a Chapter",
+            "Social media","Google search","Friend / colleague","Attended before","Other"])
         invited_by = st.text_input("If invited by a member — who invited you?", placeholder="Member name")
-
         st.markdown("## Goals & Interest Level")
-        looking_for = st.multiselect("What are you hoping to get from BNI? (select all that apply)", [
+        looking_for = st.multiselect("What are you hoping to get from BNI?", [
             "More qualified referrals","Grow my professional network","Business accountability",
             "Learn from other business owners","Give referrals to others","Greater brand visibility",
-            "Find trusted vendors & partners","Structured networking system"
-        ])
-        has_bni_before = st.radio(
-            "Have you visited or been a BNI member before?",
-            ["No — first time!", "Visited before but never joined", "Former BNI member"], horizontal=True
-        )
+            "Find trusted vendors & partners","Structured networking system"])
+        has_bni_before = st.radio("Have you visited or been a BNI member before?",
+            ["No — first time!","Visited before but never joined","Former BNI member"], horizontal=True)
         biggest_challenge = st.text_area("What is your biggest business challenge right now?",
             placeholder="e.g. Generating consistent leads...", height=80)
         ready_to_join = st.select_slider("How interested are you in joining our chapter?",
             options=["Just exploring","Somewhat interested","Very interested","Ready to apply!"])
         notes = st.text_area("Anything else you would like us to know? (optional)", height=70)
-
         v_submitted = st.form_submit_button("\U0001f91d Submit — We Will Be In Touch!")
 
     if v_submitted:
         errs = []
-        if not first_name.strip():    errs.append("First Name")
-        if not last_name.strip():     errs.append("Last Name")
-        if not email.strip():         errs.append("Email Address")
+        if not first_name.strip(): errs.append("First Name")
+        if not last_name.strip():  errs.append("Last Name")
+        if not email.strip():      errs.append("Email Address")
         if not business_name.strip(): errs.append("Business Name")
         if industry == "Select one...": errs.append("Industry / Profession")
         if industry == "Other" and not other_industry.strip(): errs.append("Profession (Other)")
@@ -344,677 +237,697 @@ elif st.session_state["page"] == "visitor":
             try:
                 creds_dict = json.loads(st.secrets["GOOGLE_CREDS"])
                 creds = Credentials.from_service_account_info(creds_dict, scopes=[
-                    "https://spreadsheets.google.com/feeds",
-                    "https://www.googleapis.com/auth/drive"
-                ])
+                    "https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/drive"])
                 client = gspread.authorize(creds)
                 client.open(st.secrets["SHEET_NAME"]).sheet1.append_row(row)
             except Exception as e:
                 st.warning(f"Could not save to sheet: {e}")
             try:
-                gu = st.secrets["GMAIL_USER"]
-                gp = st.secrets["GMAIL_APP_PASSWORD"]
+                gu = st.secrets["GMAIL_USER"]; gp = st.secrets["GMAIL_APP_PASSWORD"]
                 re_ = st.secrets["REPORT_EMAIL"]
-                send_visitor_welcome(first_name.strip(), email.strip(), business_name.strip(),
-                                     ready_to_join, gu, gp)
+                send_visitor_welcome(first_name.strip(), email.strip(), business_name.strip(), ready_to_join, gu, gp)
                 if ready_to_join in ["Ready to apply!", "Very interested"]:
-                    send_hot_lead(first_name.strip(), last_name.strip(), email.strip(),
-                                  phone.strip(), business_name.strip(), fin_industry,
-                                  elevator_pitch.strip(), ready_to_join, gu, gp, re_)
-            except KeyError:
-                pass
-            except Exception:
-                pass
-
-            st.components.v1.html("""
-            <canvas id="cc" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9999;"></canvas>
-            <script>
-            (function(){
-                var c=document.getElementById("cc"),ctx=c.getContext("2d");
-                c.width=window.innerWidth; c.height=window.innerHeight;
-                var cols=["#C8102E","#FFD700","#27ae60","#3498db","#f39c12","#fff","#e74c3c"];
-                var pp=[];
-                for(var i=0;i<160;i++) pp.push({x:Math.random()*c.width,y:Math.random()*c.height-c.height,
-                    w:Math.random()*10+5,h:Math.random()*5+3,col:cols[Math.floor(Math.random()*cols.length)],
-                    rot:Math.random()*360,vx:Math.random()*2-1,vy:Math.random()*4+2,vr:Math.random()*6-3});
-                var f=0;
-                function draw(){
-                    ctx.clearRect(0,0,c.width,c.height);
-                    pp.forEach(function(p){
-                        ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
-                        ctx.fillStyle=p.col;ctx.globalAlpha=.85;
-                        ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
-                        p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
-                        if(p.y>c.height){p.y=-10;p.x=Math.random()*c.width;}
-                    });
-                    f++;if(f<200)requestAnimationFrame(draw);else ctx.clearRect(0,0,c.width,c.height);
-                }
-                draw();
-            })();
-            </script>
-            """, height=0)
+                    send_hot_lead(first_name.strip(), last_name.strip(), email.strip(), phone.strip(),
+                        business_name.strip(), fin_industry, elevator_pitch.strip(), ready_to_join, gu, gp, re_)
+            except KeyError: pass
+            except Exception: pass
+            st.components.v1.html("""<canvas id="cc" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:9999;"></canvas>
+            <script>(function(){var c=document.getElementById("cc"),ctx=c.getContext("2d");c.width=window.innerWidth;c.height=window.innerHeight;
+            var cols=["#C8102E","#FFD700","#27ae60","#3498db","#f39c12","#fff","#e74c3c"];var pp=[];
+            for(var i=0;i<160;i++)pp.push({x:Math.random()*c.width,y:Math.random()*c.height-c.height,
+            w:Math.random()*10+5,h:Math.random()*5+3,col:cols[Math.floor(Math.random()*cols.length)],
+            rot:Math.random()*360,vx:Math.random()*2-1,vy:Math.random()*4+2,vr:Math.random()*6-3});
+            var f=0;function draw(){ctx.clearRect(0,0,c.width,c.height);
+            pp.forEach(function(p){ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+            ctx.fillStyle=p.col;ctx.globalAlpha=.85;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+            p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;if(p.y>c.height){p.y=-10;p.x=Math.random()*c.width;}});
+            f++;if(f<200)requestAnimationFrame(draw);else ctx.clearRect(0,0,c.width,c.height);}draw();})();</script>""", height=0)
             st.balloons()
-            st.markdown(f"""
-            <div class='success-card'>
+            st.markdown(f"""<div class='success-card'>
               <h3 style='color:#27ae60;margin-top:0;'>&#127881; Thanks, {first_name}! You are all set.</h3>
               <table style='width:100%;font-size:.95em;border-collapse:collapse;'>
-                <tr><td style='padding:5px 8px;color:#555;width:110px;'><strong>Name</strong></td><td style='padding:5px 8px;'>{first_name} {last_name}</td></tr>
-                <tr style='background:#f0fff4;'><td style='padding:5px 8px;color:#555;'><strong>Business</strong></td><td style='padding:5px 8px;'>{business_name}</td></tr>
-                <tr><td style='padding:5px 8px;color:#555;'><strong>Industry</strong></td><td style='padding:5px 8px;'>{fin_industry}</td></tr>
-                <tr style='background:#f0fff4;'><td style='padding:5px 8px;color:#555;'><strong>Email</strong></td><td style='padding:5px 8px;'>{email}</td></tr>
-                <tr><td style='padding:5px 8px;color:#555;'><strong>Interest</strong></td><td style='padding:5px 8px;'><strong style='color:#C8102E;'>{ready_to_join}</strong></td></tr>
+                <tr><td style='padding:5px 8px;color:#555;width:110px;'><strong>Name</strong></td><td>{first_name} {last_name}</td></tr>
+                <tr style='background:#f0fff4;'><td style='padding:5px 8px;color:#555;'><strong>Business</strong></td><td>{business_name}</td></tr>
+                <tr><td style='padding:5px 8px;color:#555;'><strong>Industry</strong></td><td>{fin_industry}</td></tr>
+                <tr style='background:#f0fff4;'><td style='padding:5px 8px;color:#555;'><strong>Email</strong></td><td>{email}</td></tr>
+                <tr><td style='padding:5px 8px;color:#555;'><strong>Interest</strong></td><td><strong style='color:#C8102E;'>{ready_to_join}</strong></td></tr>
               </table>
               <div style='background:#fff;border:1px solid #c3e6cb;border-radius:8px;padding:10px 14px;margin-top:12px;font-size:.9em;color:#27ae60;'>
                 <strong>What happens next?</strong><br>
                 &#10003; A BNI member contacts you within 24 hours.<br>
                 &#10003; You will be invited to a 1-2-1 coffee meeting.<br>
                 &#10003; You can apply for membership and lock in your profession!
-              </div>
-            </div>
-            """, unsafe_allow_html=True)
+              </div></div>""", unsafe_allow_html=True)
 
-# ═══════════════════════════════════════════════════════════════════════════
+
+# ══════════════════════════════════════════════════════
 # MEETING RECORDER PAGE
-# ═══════════════════════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════
 elif st.session_state["page"] == "recorder":
-
     if st.button("\u2190 Back to Home", key="back_r"):
         st.session_state["page"] = "landing"
         st.rerun()
 
-    st.markdown("""
-    <div style='text-align:center;margin-bottom:1em;'>
-      <h2 style='color:#1a56db !important;border:none;margin-bottom:4px;'>&#127908; BNI Meeting Recorder</h2>
-      <p style='color:#555;font-size:.95em;margin:0;'>
-        Start the recorder at the beginning of your meeting. It listens live, transcribes each speaker,
-        and automatically tallies TYFCB, Referrals, and Testimonials per member.
-        Press <strong>End Meeting &amp; Send Report</strong> when done.
-      </p>
-    </div>
-    """, unsafe_allow_html=True)
+    today_str = datetime.now().strftime("%B %d, %Y")
+    day_of_week = datetime.now().strftime("%A")
 
-    # ── Report email helper ───────────────────────────────────────────────────
-    def send_meeting_report(date_str, tally_json, full_transcript, gmail_user, gmail_pass):
+    def send_meeting_report(date_str, tally_json, transcript, gmail_user, gmail_pass):
         recipients = ["ausjones84@gmail.com"]
         try:
-            extra = st.secrets.get("REPORT_EMAIL", "")
+            extra = st.secrets.get("REPORT_EMAIL","")
             if extra:
                 for r in extra.split(","):
-                    r = r.strip()
-                    if r and r not in recipients:
-                        recipients.append(r)
-        except Exception:
-            pass
-
-        import json as _json
-        tally = _json.loads(tally_json) if tally_json else []
-
-        rows_html = ""
-        for i, m in enumerate(tally):
-            bg = "#f9f9f9" if i % 2 else "#fff"
-            rows_html += f"""<tr style='background:{bg};'>
-              <td style='padding:8px 10px;font-weight:600;'>{m.get('name','')}</td>
-              <td style='padding:8px 10px;text-align:center;color:#27ae60;font-weight:700;'>{m.get('tyfcb',0)}</td>
-              <td style='padding:8px 10px;text-align:center;color:#C8102E;font-weight:700;'>{m.get('referral',0)}</td>
-              <td style='padding:8px 10px;text-align:center;color:#8e44ad;font-weight:700;'>{m.get('testimonial',0)}</td>
-              <td style='padding:8px 10px;font-size:.82em;color:#555;'>{m.get('notes','')}</td>
+                    r=r.strip()
+                    if r and r not in recipients: recipients.append(r)
+        except Exception: pass
+        import json as _j
+        tally = _j.loads(tally_json) if tally_json else []
+        total_t = sum(m.get("tyfcb",0) for m in tally)
+        total_r = sum(m.get("referral",0) for m in tally)
+        total_s = sum(m.get("testimonial",0) for m in tally)
+        tally_sorted = sorted(tally, key=lambda x: x.get("tyfcb",0)+x.get("referral",0)+x.get("testimonial",0), reverse=True)
+        rows = ""
+        for i,m in enumerate(tally_sorted):
+            if m.get("tyfcb",0)+m.get("referral",0)+m.get("testimonial",0)==0: continue
+            bg = "#f9f9f9" if i%2 else "#fff"
+            total = m.get("tyfcb",0)+m.get("referral",0)+m.get("testimonial",0)
+            medal = "\U0001f947" if i==0 else ("\U0001f948" if i==1 else ("\U0001f949" if i==2 else ""))
+            rows += f"""<tr style='background:{bg};'>
+              <td style='padding:10px 12px;font-weight:700;font-size:1em;'>{medal} {m.get("name","")}</td>
+              <td style='padding:10px 12px;text-align:center;'><span style='background:#27ae60;color:white;border-radius:20px;padding:3px 10px;font-weight:700;font-size:.9em;'>{m.get("tyfcb",0)}</span></td>
+              <td style='padding:10px 12px;text-align:center;'><span style='background:#C8102E;color:white;border-radius:20px;padding:3px 10px;font-weight:700;font-size:.9em;'>{m.get("referral",0)}</span></td>
+              <td style='padding:10px 12px;text-align:center;'><span style='background:#8e44ad;color:white;border-radius:20px;padding:3px 10px;font-weight:700;font-size:.9em;'>{m.get("testimonial",0)}</span></td>
+              <td style='padding:10px 12px;text-align:center;font-weight:800;font-size:1.1em;color:#1a56db;'>{total}</td>
+              <td style='padding:10px 12px;font-size:.82em;color:#777;max-width:200px;'>{m.get("notes","")[:80]}</td>
             </tr>"""
-
-        total_t = sum(m.get('tyfcb',0) for m in tally)
-        total_r = sum(m.get('referral',0) for m in tally)
-        total_s = sum(m.get('testimonial',0) for m in tally)
-
+        top3 = [m for m in tally_sorted if m.get("tyfcb",0)+m.get("referral",0)+m.get("testimonial",0)>0][:3]
+        top3_html = ""
+        podium_colors = ["#f39c12","#95a5a6","#cd7f32"]
+        podium_labels = ["\U0001f947 1st","\U0001f948 2nd","\U0001f949 3rd"]
+        for idx,m in enumerate(top3):
+            top3_html += f"""<td style='text-align:center;padding:8px;vertical-align:bottom;'>
+              <div style='background:{podium_colors[idx]};color:white;border-radius:10px 10px 0 0;
+                   padding:14px 10px 8px;font-weight:800;font-size:1em;min-width:100px;'>
+                {podium_labels[idx]}<br><span style='font-size:1.2em;'>{m.get("name","").split()[0]}</span>
+              </div>
+              <div style='background:#f0f0f0;padding:6px;font-size:.8em;color:#555;border-radius:0 0 8px 8px;'>
+                T:{m.get("tyfcb",0)} R:{m.get("referral",0)} S:{m.get("testimonial",0)}
+              </div></td>"""
         html_body = f"""
-        <div style="font-family:Arial,sans-serif;max-width:720px;margin:auto;">
-          <div style="background:linear-gradient(135deg,#C8102E 0%,#8b0000 100%);
-               color:white;padding:22px 28px;border-radius:12px 12px 0 0;">
-            <div style="font-size:1.8em;font-weight:900;letter-spacing:3px;margin-bottom:4px;">BNI</div>
-            <h2 style="margin:0;color:white !important;font-size:1.4em;">Weekly Meeting Report</h2>
-            <p style="margin:6px 0 0;opacity:.85;font-size:.95em;">Date: <strong>{date_str}</strong></p>
+        <div style="font-family:Arial,sans-serif;max-width:750px;margin:auto;background:#fff;">
+          <div style="background:linear-gradient(135deg,#C8102E 0%,#8b0000 100%);color:white;padding:26px 32px;border-radius:14px 14px 0 0;">
+            <div style="font-size:1.5em;font-weight:900;letter-spacing:3px;margin-bottom:4px;">BNI Leaders FTL</div>
+            <h2 style="margin:0;color:white !important;font-size:1.5em;">&#127908; Weekly Meeting Report</h2>
+            <p style="margin:6px 0 0;opacity:.85;">&#128197; {date_str} &nbsp;&mdash;&nbsp; &#128336; Generated at {datetime.now().strftime("%I:%M %p")}</p>
           </div>
-          <div style="background:#f9f9f9;padding:24px 28px;border-radius:0 0 12px 12px;">
-            <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+          <div style="padding:28px 32px;background:#f8f9fa;">
+            <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
               <tr>
-                <td style="text-align:center;background:#27ae60;color:white;padding:14px;border-radius:10px;width:30%;">
-                  <div style="font-size:2em;font-weight:900;">{total_t}</div>
-                  <div style="font-size:.85em;opacity:.9;">Total TYFCBs</div>
-                </td>
-                <td style="width:5%;"></td>
-                <td style="text-align:center;background:#C8102E;color:white;padding:14px;border-radius:10px;width:30%;">
-                  <div style="font-size:2em;font-weight:900;">{total_r}</div>
-                  <div style="font-size:.85em;opacity:.9;">Total Referrals</div>
-                </td>
-                <td style="width:5%;"></td>
-                <td style="text-align:center;background:#8e44ad;color:white;padding:14px;border-radius:10px;width:30%;">
-                  <div style="font-size:2em;font-weight:900;">{total_s}</div>
-                  <div style="font-size:.85em;opacity:.9;">Total Testimonials</div>
-                </td>
+                <td style="text-align:center;background:#27ae60;color:white;padding:18px;border-radius:12px;width:30%;">
+                  <div style="font-size:2.8em;font-weight:900;line-height:1;">{total_t}</div>
+                  <div style="font-size:.9em;opacity:.9;margin-top:4px;">&#127881; TYFCBs</div></td>
+                <td style="width:4%;"></td>
+                <td style="text-align:center;background:#C8102E;color:white;padding:18px;border-radius:12px;width:30%;">
+                  <div style="font-size:2.8em;font-weight:900;line-height:1;">{total_r}</div>
+                  <div style="font-size:.9em;opacity:.9;margin-top:4px;">&#128279; Referrals</div></td>
+                <td style="width:4%;"></td>
+                <td style="text-align:center;background:#8e44ad;color:white;padding:18px;border-radius:12px;width:30%;">
+                  <div style="font-size:2.8em;font-weight:900;line-height:1;">{total_s}</div>
+                  <div style="font-size:.9em;opacity:.9;margin-top:4px;">&#11088; Testimonials</div></td>
               </tr>
             </table>
-            <h3 style="color:#1a56db;margin-top:0;">&#127942; Member Activity Tally</h3>
-            <table style="width:100%;border-collapse:collapse;font-size:.92em;margin-bottom:24px;">
-              <thead>
-                <tr style="background:#1a56db;color:white;">
-                  <th style="padding:8px 10px;text-align:left;">Member</th>
-                  <th style="padding:8px 10px;text-align:center;">TYFCB</th>
-                  <th style="padding:8px 10px;text-align:center;">Referrals</th>
-                  <th style="padding:8px 10px;text-align:center;">Testimonials</th>
-                  <th style="padding:8px 10px;text-align:left;">Transcript Notes</th>
-                </tr>
-              </thead>
-              <tbody>{rows_html or "<tr><td colspan='5' style='padding:12px;color:#999;text-align:center;'>No activity recorded</td></tr>"}</tbody>
+            {"<h3 style='color:#f39c12;margin:0 0 12px;'>&#127942; Top Contributors</h3><table style='width:100%;border-collapse:collapse;margin-bottom:28px;'><tr>" + top3_html + "</tr></table>" if top3 else ""}
+            <h3 style="color:#1a56db;margin:0 0 12px;">&#128203; Full Scorecard</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:.93em;margin-bottom:28px;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);">
+              <thead><tr style="background:#1a56db;color:white;">
+                <th style="padding:10px 12px;text-align:left;">Member</th>
+                <th style="padding:10px 12px;text-align:center;">&#127881; TYFCB</th>
+                <th style="padding:10px 12px;text-align:center;">&#128279; Referrals</th>
+                <th style="padding:10px 12px;text-align:center;">&#11088; Testimonials</th>
+                <th style="padding:10px 12px;text-align:center;">Total</th>
+                <th style="padding:10px 12px;text-align:left;">Notes</th>
+              </tr></thead>
+              <tbody>{rows or "<tr><td colspan='6' style='padding:14px;text-align:center;color:#999;'>No activity recorded this meeting</td></tr>"}</tbody>
             </table>
-            <h3 style="color:#555;font-size:.95em;">&#128221; Full Meeting Transcript</h3>
-            <div style="background:#fff;border:1px solid #ddd;border-radius:8px;padding:14px;
-                 font-family:monospace;font-size:.85em;color:#333;white-space:pre-wrap;
-                 max-height:300px;overflow-y:auto;">{full_transcript or "No transcript captured."}</div>
-            <p style="font-size:.78em;color:#aaa;margin-top:20px;text-align:center;">
-              Automated by BNI Chapter Hub &mdash;
-              <a href="https://mrceesai.com" style="color:#C8102E;">mrceesai.com</a>
+            <h3 style="color:#555;font-size:.95em;">&#128221; Meeting Transcript</h3>
+            <div style="background:#0d1117;border-radius:10px;padding:16px;font-family:monospace;font-size:.82em;color:#58a6ff;white-space:pre-wrap;max-height:280px;overflow-y:auto;">{transcript or "No transcript captured."}</div>
+            <p style="font-size:.78em;color:#aaa;margin-top:24px;text-align:center;border-top:1px solid #eee;padding-top:16px;">
+              &#x1F916; Automated by BNI Leaders FTL Chapter Hub &mdash; <a href="https://mrceesai.com" style="color:#C8102E;">mrceesai.com</a>
             </p>
           </div>
         </div>"""
-
         try:
             msg = MIMEMultipart("alternative")
-            msg["Subject"] = f"BNI Weekly Meeting Report \u2014 {date_str}"
-            msg["From"] = gmail_user
-            msg["To"] = ", ".join(recipients)
-            msg.attach(MIMEText(html_body, "html"))
-            with smtplib.SMTP_SSL("smtp.gmail.com", 465) as srv:
-                srv.login(gmail_user, gmail_pass)
-                srv.sendmail(gmail_user, recipients, msg.as_string())
+            msg["Subject"] = f"\U0001f3c6 BNI Leaders FTL Meeting Report \u2014 {date_str}"
+            msg["From"] = gmail_user; msg["To"] = ", ".join(recipients)
+            msg.attach(MIMEText(html_body,"html"))
+            with smtplib.SMTP_SSL("smtp.gmail.com",465) as srv:
+                srv.login(gmail_user,gmail_pass); srv.sendmail(gmail_user,recipients,msg.as_string())
             return True, recipients
         except Exception as e:
             return False, str(e)
 
-    # ── Big recorder component ────────────────────────────────────────────────
-    meeting_date_str = datetime.now().strftime("%B %d, %Y")
-
     st.components.v1.html(f"""
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BNI Meeting Recorder</title>
 <style>
-  * {{ box-sizing:border-box; margin:0; padding:0; font-family:Arial,sans-serif; }}
-  body {{ background:#f4f6fb; padding:12px; }}
-
-  /* ── Top control bar ── */
-  .ctrl-bar {{
-    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-    background:#fff; border-radius:12px; padding:12px 16px;
-    box-shadow:0 2px 12px rgba(0,0,0,.08); margin-bottom:14px;
-  }}
-  .rec-dot {{
-    width:14px; height:14px; border-radius:50%; background:#ccc;
-    flex-shrink:0; transition:background .3s;
-  }}
-  .rec-dot.active {{ background:#e74c3c; animation:blink 1s infinite; }}
-  @keyframes blink {{ 0%,100%{{opacity:1;}} 50%{{opacity:.2;}} }}
-  .timer {{ font-family:monospace; font-size:1.05em; color:#1a56db; font-weight:700; min-width:46px; }}
-  .status-text {{ flex:1; font-size:.9em; color:#555; }}
-  .btn {{ border:none; border-radius:8px; padding:9px 18px; font-size:.92em; font-weight:700; cursor:pointer; transition:all .2s; }}
-  .btn-start {{ background:linear-gradient(135deg,#27ae60,#1e8449); color:white; }}
-  .btn-start:hover {{ opacity:.88; }}
-  .btn-start:disabled {{ background:#bbb; cursor:not-allowed; }}
-  .btn-stop  {{ background:linear-gradient(135deg,#C8102E,#8b0000); color:white; }}
-  .btn-stop:hover {{ opacity:.88; }}
-  .btn-stop:disabled  {{ background:#bbb; cursor:not-allowed; }}
-
-  /* ── Two-column layout ── */
-  .layout {{ display:flex; gap:14px; }}
-
-  /* ── Member roster ── */
-  .roster-col {{ width:230px; flex-shrink:0; }}
-  .roster-card {{
-    background:#fff; border-radius:12px; padding:12px;
-    box-shadow:0 2px 12px rgba(0,0,0,.07); height:100%;
-  }}
-  .roster-card h3 {{ color:#1a56db; font-size:.95em; margin-bottom:10px; border-bottom:2px solid #e8edf5; padding-bottom:6px; }}
-  .member-row {{
-    display:flex; align-items:center; gap:7px;
-    padding:6px 8px; border-radius:8px; cursor:pointer;
-    transition:background .18s; margin-bottom:4px;
-    border:1.5px solid transparent;
-  }}
-  .member-row:hover {{ background:#f0f4ff; }}
-  .member-row.active {{ background:#e8f0ff; border-color:#1a56db; }}
-  .member-row.speaking {{ background:#fff3f3; border-color:#C8102E; animation:rowPulse .8s infinite; }}
-  @keyframes rowPulse {{ 0%,100%{{box-shadow:0 0 0 0 rgba(200,16,46,.2);}} 50%{{box-shadow:0 0 0 5px rgba(200,16,46,0);}} }}
-  .member-avatar {{
-    width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#C8102E,#8b0000);
-    color:white; font-weight:700; font-size:.8em; display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-  }}
-  .member-name {{ font-size:.87em; font-weight:600; color:#333; flex:1; }}
-  .member-badges {{ display:flex; gap:3px; }}
-  .badge {{ font-size:.7em; font-weight:700; padding:1px 6px; border-radius:10px; }}
-  .badge-t {{ background:#27ae60; color:white; }}
-  .badge-r {{ background:#C8102E; color:white; }}
-  .badge-s {{ background:#8e44ad; color:white; }}
-  .add-member-wrap {{ margin-top:10px; display:flex; gap:6px; }}
-  .add-member-wrap input {{
-    flex:1; border:1.5px solid #ddd; border-radius:6px; padding:5px 8px; font-size:.83em;
-  }}
-  .add-member-wrap input:focus {{ outline:none; border-color:#1a56db; }}
-  .add-member-wrap button {{
-    background:#1a56db; color:white; border:none; border-radius:6px;
-    padding:5px 10px; font-size:.83em; font-weight:700; cursor:pointer;
-  }}
-
-  /* ── Right column ── */
-  .right-col {{ flex:1; min-width:0; display:flex; flex-direction:column; gap:14px; }}
-
-  /* ── Live transcript ── */
-  .transcript-card {{
-    background:#0d1117; border-radius:12px; padding:12px 14px;
-    box-shadow:0 2px 12px rgba(0,0,0,.12); flex:1;
-  }}
-  .transcript-label {{ color:#58a6ff; font-size:.78em; font-weight:700; margin-bottom:6px; letter-spacing:.5px; }}
-  .transcript-box {{
-    color:#e6edf3; font-family:monospace; font-size:.85em;
-    white-space:pre-wrap; max-height:160px; overflow-y:auto; line-height:1.5;
-  }}
-  .speaker-line {{ margin-bottom:4px; }}
-  .speaker-tag {{ color:#58a6ff; font-weight:700; }}
-  .interim {{ color:#888; font-style:italic; }}
-
-  /* ── Tally table ── */
-  .tally-card {{ background:#fff; border-radius:12px; padding:12px; box-shadow:0 2px 12px rgba(0,0,0,.07); }}
-  .tally-card h3 {{ color:#1a56db; font-size:.93em; margin-bottom:8px; }}
-  table {{ width:100%; border-collapse:collapse; font-size:.85em; }}
-  th {{ background:#1a56db; color:white; padding:6px 8px; text-align:left; }}
-  th.center {{ text-align:center; }}
-  td {{ padding:5px 8px; border-bottom:1px solid #f0f0f0; }}
-  td.center {{ text-align:center; font-weight:700; }}
-  .td-t {{ color:#27ae60; }}
-  .td-r {{ color:#C8102E; }}
-  .td-s {{ color:#8e44ad; }}
-  tr:hover {{ background:#f8f9ff; }}
-  tr.speaking-row {{ background:#fff3f3; }}
-
-  /* ── Attribution/manual buttons ── */
-  .attr-bar {{
-    background:#fff; border-radius:12px; padding:10px 14px;
-    box-shadow:0 2px 12px rgba(0,0,0,.07);
-  }}
-  .attr-bar h4 {{ color:#555; font-size:.85em; margin-bottom:8px; font-weight:600; }}
-  .attr-grid {{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }}
-  .attr-select {{ border:1.5px solid #ddd; border-radius:6px; padding:5px 8px; font-size:.83em; flex:1; min-width:120px; }}
-  .attr-select:focus {{ outline:none; border-color:#1a56db; }}
-  .attr-btn {{ border:none; border-radius:6px; padding:6px 12px; font-size:.8em; font-weight:700; cursor:pointer; }}
-  .attr-btn-t {{ background:#27ae60; color:white; }}
-  .attr-btn-r {{ background:#C8102E; color:white; }}
-  .attr-btn-s {{ background:#8e44ad; color:white; }}
-  .attr-btn:hover {{ opacity:.85; }}
-
-  /* ── End meeting ── */
-  .end-bar {{
-    background:#fff; border-radius:12px; padding:12px 14px;
-    box-shadow:0 2px 12px rgba(0,0,0,.07); display:flex; align-items:center; gap:10px;
-  }}
-  .btn-end {{ background:linear-gradient(135deg,#f39c12,#e67e22); color:white; flex:1; padding:11px 0; font-size:.95em; }}
-  .result-box {{ flex:1; font-size:.85em; }}
-
-  /* ── Report preview (shown after send) ── */
-  .report-sent {{ background:#f0fff4; border:2px solid #27ae60; border-radius:10px; padding:14px; text-align:center; }}
+*{{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;}}
+body{{background:#0a0e1a;color:#e8edf3;min-height:100vh;padding:12px;}}
+/* ── Header bar ── */
+.top-bar{{display:flex;align-items:center;gap:12px;background:#111827;border-radius:12px;
+  padding:12px 18px;margin-bottom:12px;border:1px solid #1f2937;}}
+.bni-badge{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;font-weight:900;
+  font-size:.9em;padding:5px 14px;border-radius:8px;letter-spacing:2px;flex-shrink:0;}}
+.meeting-title{{flex:1;font-size:1em;font-weight:700;color:#f9fafb;}}
+.meeting-date{{font-size:.82em;color:#6b7280;}}
+.rec-status{{display:flex;align-items:center;gap:8px;margin-left:auto;}}
+.rec-dot{{width:12px;height:12px;border-radius:50%;background:#374151;flex-shrink:0;transition:background .3s;}}
+.rec-dot.live{{background:#ef4444;animation:blink .9s infinite;}}
+@keyframes blink{{0%,100%{{opacity:1;}}50%{{opacity:.15;}}}}
+.timer{{font-family:monospace;font-size:1.1em;font-weight:700;color:#60a5fa;min-width:50px;}}
+/* ── Detected badge ── */
+.detected-wrap{{background:#111827;border-radius:12px;padding:10px 16px;margin-bottom:12px;
+  border:1px solid #1f2937;display:flex;align-items:center;gap:12px;min-height:54px;}}
+.detected-label{{font-size:.75em;color:#6b7280;font-weight:600;letter-spacing:.5px;flex-shrink:0;}}
+.detected-pill{{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:4px 14px;
+  font-weight:700;font-size:.88em;animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}}
+@keyframes popIn{{from{{opacity:0;transform:scale(.7);}}to{{opacity:1;transform:scale(1);}}}}
+.pill-tyfcb{{background:rgba(39,174,96,.2);border:2px solid #27ae60;color:#4ade80;}}
+.pill-ref{{background:rgba(200,16,46,.2);border:2px solid #C8102E;color:#f87171;}}
+.pill-test{{background:rgba(142,68,173,.2);border:2px solid #8e44ad;color:#c084fc;}}
+.pill-name{{background:rgba(26,86,219,.2);border:2px solid #1a56db;color:#60a5fa;}}
+/* ── Live transcript ── */
+.transcript-wrap{{background:#111827;border-radius:12px;padding:10px 14px;margin-bottom:12px;
+  border:1px solid #1f2937;}}
+.transcript-hdr{{font-size:.73em;color:#6b7280;font-weight:700;letter-spacing:.5px;margin-bottom:6px;}}
+.transcript-body{{font-family:monospace;font-size:.83em;color:#93c5fd;white-space:pre-wrap;
+  max-height:110px;overflow-y:auto;line-height:1.6;}}
+.t-final{{color:#e2e8f0;}}
+.t-interim{{color:#6b7280;font-style:italic;}}
+.t-speaker{{color:#60a5fa;font-weight:700;}}
+.t-tyfcb{{color:#4ade80;font-weight:700;}}
+.t-ref{{color:#f87171;font-weight:700;}}
+.t-test{{color:#c084fc;font-weight:700;}}
+/* ── Action prompt overlay ── */
+.action-prompt{{background:#1f2937;border-radius:12px;padding:10px 16px;margin-bottom:12px;
+  border:1px solid #374151;display:none;}}
+.action-prompt.visible{{display:block;animation:slideIn .25s ease;}}
+@keyframes slideIn{{from{{opacity:0;transform:translateY(-8px);}}to{{opacity:1;transform:translateY(0);}}}}
+.action-prompt-title{{font-size:.82em;color:#9ca3af;margin-bottom:8px;}}
+.action-prompt strong{{color:#f9fafb;font-size:.95em;}}
+.action-btns{{display:flex;gap:8px;flex-wrap:wrap;}}
+.act-btn{{border:none;border-radius:8px;padding:8px 16px;font-size:.85em;font-weight:700;
+  cursor:pointer;transition:all .18s;}}
+.act-btn:hover{{transform:translateY(-1px);opacity:.9;}}
+.act-tyfcb{{background:linear-gradient(135deg,#27ae60,#1e8449);color:white;}}
+.act-ref{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}
+.act-test{{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}}
+.act-cancel{{background:#374151;color:#9ca3af;}}
+/* ── Scoreboard ── */
+.scoreboard-hdr{{font-size:.85em;color:#9ca3af;font-weight:700;letter-spacing:.5px;
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;}}
+.score-totals{{display:flex;gap:8px;margin-bottom:14px;}}
+.total-pill{{flex:1;text-align:center;border-radius:10px;padding:10px 6px;}}
+.total-pill .num{{font-size:1.8em;font-weight:900;line-height:1;}}
+.total-pill .lbl{{font-size:.72em;opacity:.85;margin-top:3px;}}
+.tp-t{{background:rgba(39,174,96,.15);border:1.5px solid #27ae60;}}
+.tp-r{{background:rgba(200,16,46,.15);border:1.5px solid #C8102E;}}
+.tp-s{{background:rgba(142,68,173,.15);border:1.5px solid #8e44ad;}}
+/* ── Member cards grid ── */
+.members-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;
+  margin-bottom:14px;}}
+.member-card{{background:#111827;border:2px solid #1f2937;border-radius:12px;
+  padding:12px 10px;text-align:center;cursor:pointer;transition:all .22s;position:relative;}}
+.member-card:hover{{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.4);}}
+.member-card.speaking{{border-color:#60a5fa;background:#1e2d4a;
+  box-shadow:0 0 0 3px rgba(96,165,250,.35);animation:cardPulse .8s infinite;}}
+.member-card.just-scored{{animation:scoreFlash .6s ease;}}
+@keyframes cardPulse{{0%,100%{{box-shadow:0 0 0 3px rgba(96,165,250,.35);}}50%{{box-shadow:0 0 0 6px rgba(96,165,250,.1);}}}}
+@keyframes scoreFlash{{0%{{background:#1f2937;}}30%{{background:#1c3a2a;border-color:#27ae60;}}100%{{background:#111827;}}}}
+.member-avatar{{width:42px;height:42px;border-radius:50%;margin:0 auto 6px;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1em;
+  background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}
+.member-card.speaking .member-avatar{{background:linear-gradient(135deg,#1a56db,#1e3a8a);}}
+.member-nm{{font-size:.82em;font-weight:700;color:#f3f4f6;margin-bottom:6px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
+.member-badges{{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;min-height:22px;}}
+.mbadge{{border-radius:10px;padding:2px 7px;font-size:.7em;font-weight:800;}}
+.mb-t{{background:#27ae60;color:white;}}
+.mb-r{{background:#C8102E;color:white;}}
+.mb-s{{background:#8e44ad;color:white;}}
+.member-total{{position:absolute;top:6px;right:8px;font-size:.7em;font-weight:800;
+  color:#60a5fa;opacity:.8;}}
+/* ── Speaking indicator on card ── */
+.speaking-wave{{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+  display:none;gap:2px;}}
+.member-card.speaking .speaking-wave{{display:flex;}}
+.sw{{width:3px;border-radius:2px;background:#60a5fa;animation:wave .7s infinite ease-in-out;}}
+.sw:nth-child(1){{height:6px;animation-delay:0s;}}
+.sw:nth-child(2){{height:12px;animation-delay:.15s;}}
+.sw:nth-child(3){{height:8px;animation-delay:.3s;}}
+.sw:nth-child(4){{height:14px;animation-delay:.1s;}}
+.sw:nth-child(5){{height:5px;animation-delay:.25s;}}
+@keyframes wave{{0%,100%{{transform:scaleY(.4);}}50%{{transform:scaleY(1);}}}}
+/* ── Add member ── */
+.add-member-row{{display:flex;gap:8px;margin-bottom:14px;}}
+.add-member-inp{{flex:1;background:#1f2937;border:1.5px solid #374151;border-radius:8px;
+  padding:8px 12px;color:#f3f4f6;font-size:.88em;outline:none;}}
+.add-member-inp:focus{{border-color:#1a56db;}}
+.add-member-inp::placeholder{{color:#6b7280;}}
+.add-member-btn{{background:#1a56db;color:white;border:none;border-radius:8px;
+  padding:8px 16px;font-size:.88em;font-weight:700;cursor:pointer;}}
+/* ── Controls ── */
+.controls{{display:flex;gap:10px;margin-bottom:14px;}}
+.ctrl-btn{{flex:1;border:none;border-radius:10px;padding:13px 0;font-size:.95em;
+  font-weight:700;cursor:pointer;transition:all .2s;}}
+.ctrl-btn:hover{{transform:translateY(-2px);opacity:.9;}}
+.ctrl-btn:disabled{{opacity:.4;cursor:not-allowed;transform:none;}}
+.btn-start{{background:linear-gradient(135deg,#27ae60,#1e8449);color:white;}}
+.btn-stop{{background:linear-gradient(135deg,#374151,#1f2937);color:#9ca3af;border:1.5px solid #374151;}}
+.btn-stop.active{{background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border:none;}}
+.btn-end{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}
+/* ── Toast notification ── */
+.toast{{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:#111827;border:1.5px solid #374151;border-radius:12px;padding:10px 20px;
+  font-size:.88em;color:#f3f4f6;z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;white-space:nowrap;}}
+.toast.show{{transform:translateX(-50%) translateY(0);}}
 </style>
 </head>
 <body>
 
-<!-- ── Control bar ── -->
-<div class="ctrl-bar">
-  <div class="rec-dot" id="recDot"></div>
-  <span class="timer" id="timer">0:00</span>
-  <span class="status-text" id="statusTxt">Press <strong>Start Recording</strong> to begin the meeting.</span>
-  <button class="btn btn-start" id="btnStart" onclick="startRec()">&#9654; Start Recording</button>
-  <button class="btn btn-stop"  id="btnStop"  onclick="stopRec()" disabled>&#9632; Pause</button>
-</div>
-
-<!-- ── Two-column layout ── -->
-<div class="layout">
-
-  <!-- LEFT: Member roster -->
-  <div class="roster-col">
-    <div class="roster-card">
-      <h3>&#127942; Chapter Members</h3>
-      <div id="rosterList"></div>
-      <div class="add-member-wrap">
-        <input type="text" id="addMemberInput" placeholder="Add member name..." onkeydown="if(event.key==='Enter')addMember()">
-        <button onclick="addMember()">+</button>
-      </div>
-    </div>
+<!-- ── Top bar ── -->
+<div class="top-bar">
+  <div class="bni-badge">BNI</div>
+  <div>
+    <div class="meeting-title">Leaders FTL &mdash; Meeting Recorder</div>
+    <div class="meeting-date">&#128197; {today_str} &nbsp;&#183;&nbsp; {day_of_week}</div>
   </div>
-
-  <!-- RIGHT: Transcript + tally -->
-  <div class="right-col">
-
-    <!-- Manual attribution bar -->
-    <div class="attr-bar">
-      <h4>&#128393; Manual Attribution &mdash; select member, then click activity type:</h4>
-      <div class="attr-grid">
-        <select id="attrSelect" class="attr-select">
-          <option value="">-- select member --</option>
-        </select>
-        <button class="attr-btn attr-btn-t" onclick="manualAdd('tyfcb')">+ TYFCB</button>
-        <button class="attr-btn attr-btn-r" onclick="manualAdd('referral')">+ Referral</button>
-        <button class="attr-btn attr-btn-s" onclick="manualAdd('testimonial')">+ Testimonial</button>
-      </div>
-    </div>
-
-    <!-- Tally table -->
-    <div class="tally-card">
-      <h3>&#128203; Live Tally</h3>
-      <table>
-        <thead><tr>
-          <th>Member</th>
-          <th class="center">TYFCB</th>
-          <th class="center">Referrals</th>
-          <th class="center">Testimonials</th>
-          <th>Last Heard</th>
-        </tr></thead>
-        <tbody id="tallyBody"></tbody>
-      </table>
-    </div>
-
-    <!-- Live transcript -->
-    <div class="transcript-card">
-      <div class="transcript-label">&#128250; LIVE TRANSCRIPT</div>
-      <div class="transcript-box" id="transcriptBox">Press Start Recording to begin...</div>
-    </div>
-
+  <div class="rec-status">
+    <div class="rec-dot" id="recDot"></div>
+    <span class="timer" id="timer">0:00</span>
   </div>
 </div>
 
-<!-- ── End meeting bar ── -->
-<div class="end-bar" style="margin-top:14px;">
-  <button class="btn btn-end" id="btnEnd" onclick="endMeeting()">&#128231; End Meeting &amp; Send Report</button>
-  <div class="result-box" id="resultBox"></div>
+<!-- ── Live detected pill ── -->
+<div class="detected-wrap" id="detectedWrap">
+  <span class="detected-label">DETECTED</span>
+  <span id="detectedPills" style="color:#6b7280;font-size:.85em;">Waiting for speech...</span>
 </div>
+
+<!-- ── Action prompt (shown when member detected) ── -->
+<div class="action-prompt" id="actionPrompt">
+  <div class="action-prompt-title">Detected: <strong id="promptSpeaker"></strong> &mdash; What are they reporting?</div>
+  <div class="action-btns">
+    <button class="act-btn act-tyfcb" onclick="confirmActivity('tyfcb')">&#127881; Thank You for Closed Business</button>
+    <button class="act-btn act-ref"   onclick="confirmActivity('referral')">&#128279; Referral Passed</button>
+    <button class="act-btn act-test"  onclick="confirmActivity('testimonial')">&#11088; Testimonial</button>
+    <button class="act-btn act-cancel" onclick="dismissPrompt()">&#215; Dismiss</button>
+  </div>
+</div>
+
+<!-- ── Live transcript ── -->
+<div class="transcript-wrap">
+  <div class="transcript-hdr">&#128250; LIVE TRANSCRIPT</div>
+  <div class="transcript-body" id="transcriptBox">Waiting for microphone... Press Start Recording.</div>
+</div>
+
+<!-- ── Scoreboard summary pills ── -->
+<div class="scoreboard-hdr">&#127942; LIVE SCOREBOARD</div>
+<div class="score-totals">
+  <div class="total-pill tp-t"><div class="num" id="totalT">0</div><div class="lbl">&#127881; TYFCBs</div></div>
+  <div class="total-pill tp-r"><div class="num" id="totalR">0</div><div class="lbl">&#128279; Referrals</div></div>
+  <div class="total-pill tp-s"><div class="num" id="totalS">0</div><div class="lbl">&#11088; Testimonials</div></div>
+</div>
+
+<!-- ── Member cards ── -->
+<div class="members-grid" id="membersGrid"></div>
+
+<!-- ── Add member ── -->
+<div class="add-member-row">
+  <input class="add-member-inp" id="addInp" placeholder="Add member name..." onkeydown="if(event.key==='Enter')addMember()">
+  <button class="add-member-btn" onclick="addMember()">+ Add</button>
+</div>
+
+<!-- ── Controls ── -->
+<div class="controls">
+  <button class="ctrl-btn btn-start" id="btnStart" onclick="startRec()">&#9654; Start Recording</button>
+  <button class="ctrl-btn btn-stop"  id="btnStop"  onclick="togglePause()" disabled>&#9646;&#9646; Pause</button>
+  <button class="ctrl-btn btn-end"   id="btnEnd"   onclick="endMeeting()">&#128231; End &amp; Send Report</button>
+</div>
+
+<!-- ── Toast ── -->
+<div class="toast" id="toast"></div>
 
 <script>
-// ── State ────────────────────────────────────────────────────────────────────
-var members = [
+// ─── State ────────────────────────────────────────────────────────────────
+var MEMBERS = [
   "Austin Jones","Joel Smith","Elana Davis","Michael Brown","Sarah Wilson",
   "David Lee","Jennifer Taylor","Robert Martinez","Linda Anderson","James Thomas"
 ];
-var tally = {{}};    // name -> {{tyfcb, referral, testimonial, notes, lastHeard}}
+var tally = {{}};
 var fullTranscript = "";
 var recognition = null;
 var timerInterval = null;
-var secondsElapsed = 0;
+var elapsed = 0;
 var isRecording = false;
+var isPaused = false;
 var currentSpeaker = null;
+var pendingSpeaker = null;
+var pendingText = "";
 
-// ── Keyword detection ────────────────────────────────────────────────────────
-var TYFCB_KEYWORDS    = ["thank you for closed business","tyfcb","closed business","thank you for the closed","closed the deal"];
-var REFERRAL_KEYWORDS = ["referral","pass a referral","passing a referral","referred","i have a referral","i'm passing","i am passing"];
-var TESTIMONIAL_KEYWORDS = ["testimonial","i'd like to give a testimonial","give a testimonial","would like to recognize","i want to recognize","shout out","shoutout"];
+// ─── Keyword maps ─────────────────────────────────────────────────────────
+var KW_TYFCB    = ["thank you for closed business","tyfcb","closed business","closed the deal","thank you for the closed","closed deal","business closed"];
+var KW_REF      = ["referral","pass a referral","passing a referral","referred","i have a referral","i'm passing","i am passing","giving a referral","pass referral"];
+var KW_TEST     = ["testimonial","give a testimonial","giving a testimonial","would like to recognize","want to recognize","shout out","shoutout","recognize"];
 
-function detectActivity(text) {{
-  var t = text.toLowerCase();
-  for (var i=0;i<TYFCB_KEYWORDS.length;i++)    if (t.indexOf(TYFCB_KEYWORDS[i])>-1)    return "tyfcb";
-  for (var i=0;i<REFERRAL_KEYWORDS.length;i++) if (t.indexOf(REFERRAL_KEYWORDS[i])>-1) return "referral";
-  for (var i=0;i<TESTIMONIAL_KEYWORDS.length;i++) if (t.indexOf(TESTIMONIAL_KEYWORDS[i])>-1) return "testimonial";
+function detectActivity(t) {{
+  var s = t.toLowerCase();
+  for(var i=0;i<KW_TYFCB.length;i++) if(s.indexOf(KW_TYFCB[i])>-1) return "tyfcb";
+  for(var i=0;i<KW_REF.length;i++)   if(s.indexOf(KW_REF[i])>-1)   return "referral";
+  for(var i=0;i<KW_TEST.length;i++)  if(s.indexOf(KW_TEST[i])>-1)  return "testimonial";
   return null;
 }}
 
-function detectSpeaker(text) {{
-  var t = text.toLowerCase();
-  for (var i=0;i<members.length;i++) {{
-    var name = members[i].toLowerCase();
-    var parts = name.split(" ");
-    for (var j=0;j<parts.length;j++) {{
-      if (parts[j].length > 2 && t.indexOf(parts[j]) > -1) return members[i];
+function detectMember(t) {{
+  var s = t.toLowerCase();
+  var best = null; var bestScore = 0;
+  for(var i=0;i<MEMBERS.length;i++) {{
+    var parts = MEMBERS[i].toLowerCase().split(" ");
+    var score = 0;
+    for(var j=0;j<parts.length;j++) {{
+      if(parts[j].length > 2 && s.indexOf(parts[j]) > -1) score += parts[j].length;
     }}
-    if (t.indexOf(name) > -1) return members[i];
+    if(score > bestScore) {{ bestScore = score; best = MEMBERS[i]; }}
   }}
-  return currentSpeaker;
+  return bestScore >= 3 ? best : null;
 }}
 
-// ── Init tally ───────────────────────────────────────────────────────────────
+// ─── Init ─────────────────────────────────────────────────────────────────
 function initTally() {{
   tally = {{}};
-  members.forEach(function(m) {{
-    tally[m] = {{tyfcb:0, referral:0, testimonial:0, notes:"", lastHeard:""}};
+  MEMBERS.forEach(function(m) {{
+    tally[m] = {{tyfcb:0,referral:0,testimonial:0,notes:""}};
   }});
 }}
 
-// ── Render roster ────────────────────────────────────────────────────────────
-function renderRoster() {{
-  var list = document.getElementById("rosterList");
-  var sel  = document.getElementById("attrSelect");
-  list.innerHTML = "";
-  sel.innerHTML  = '<option value="">-- select member --</option>';
-  members.forEach(function(m) {{
+function initGrid() {{
+  var grid = document.getElementById("membersGrid");
+  grid.innerHTML = "";
+  MEMBERS.forEach(function(m) {{
     var initials = m.split(" ").map(function(w){{return w[0];}}).join("").substring(0,2).toUpperCase();
-    var data = tally[m] || {{tyfcb:0,referral:0,testimonial:0}};
-    var badges = "";
-    if (data.tyfcb>0)       badges += '<span class="badge badge-t">T'+data.tyfcb+'</span>';
-    if (data.referral>0)    badges += '<span class="badge badge-r">R'+data.referral+'</span>';
-    if (data.testimonial>0) badges += '<span class="badge badge-s">S'+data.testimonial+'</span>';
-    var isSpeaking = (currentSpeaker === m);
-    var div = document.createElement("div");
-    div.className = "member-row" + (isSpeaking ? " speaking" : "");
-    div.id = "roster-" + m.replace(/\s+/g,"_");
-    div.innerHTML = '<div class="member-avatar">'+initials+'</div>' +
-                    '<span class="member-name">'+m+'</span>' +
-                    '<div class="member-badges">'+badges+'</div>';
-    div.onclick = (function(name){{return function(){{
-      currentSpeaker = name;
-      document.getElementById("attrSelect").value = name;
-      renderRoster();
+    var card = document.createElement("div");
+    card.className = "member-card";
+    card.id = "card-" + m.replace(/\s+/g,"_");
+    card.innerHTML =
+      '<div class="member-total" id="total-'+m.replace(/\s+/g,"_")+'">0</div>'+
+      '<div class="member-avatar" id="av-'+m.replace(/\s+/g,"_")+'">'+initials+'</div>'+
+      '<div class="member-nm">'+m.split(" ")[0]+'<br><span style="font-size:.75em;color:#6b7280;font-weight:400;">'+m.split(" ").slice(1).join(" ")+'</span></div>'+
+      '<div class="member-badges" id="badges-'+m.replace(/\s+/g,"_")+'"></div>'+
+      '<div class="speaking-wave"><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div></div>';
+    card.onclick = (function(name){{return function(){{
+      pendingSpeaker = name; currentSpeaker = name;
+      showPrompt(name, "");
     }};}})(m);
-    list.appendChild(div);
-    var opt = document.createElement("option");
-    opt.value = m; opt.textContent = m;
-    if (m === currentSpeaker) opt.selected = true;
-    sel.appendChild(opt);
+    grid.appendChild(card);
   }});
 }}
 
-// ── Render tally table ───────────────────────────────────────────────────────
-function renderTally() {{
-  var tbody = document.getElementById("tallyBody");
-  tbody.innerHTML = "";
-  members.forEach(function(m) {{
-    var d = tally[m] || {{tyfcb:0,referral:0,testimonial:0,notes:"",lastHeard:""}};
-    if (d.tyfcb===0 && d.referral===0 && d.testimonial===0 && !d.lastHeard) return;
-    var tr = document.createElement("tr");
-    if (currentSpeaker===m) tr.className="speaking-row";
-    tr.innerHTML =
-      '<td><strong>'+(currentSpeaker===m?'&#127908; ':'')+m+'</strong></td>' +
-      '<td class="center td-t">'+(d.tyfcb||"")+'</td>' +
-      '<td class="center td-r">'+(d.referral||"")+'</td>' +
-      '<td class="center td-s">'+(d.testimonial||"")+'</td>' +
-      '<td style="font-size:.78em;color:#777;">'+d.lastHeard+'</td>';
-    tbody.appendChild(tr);
-  }});
+function updateCard(name) {{
+  var key = name.replace(/\s+/g,"_");
+  var d = tally[name];
+  if(!d) return;
+  var total = d.tyfcb + d.referral + d.testimonial;
+  var te = document.getElementById("total-"+key);
+  if(te) te.textContent = total || "";
+  var bg = document.getElementById("badges-"+key);
+  if(!bg) return;
+  var html = "";
+  if(d.tyfcb>0)       html += '<span class="mbadge mb-t">T'+d.tyfcb+'</span>';
+  if(d.referral>0)    html += '<span class="mbadge mb-r">R'+d.referral+'</span>';
+  if(d.testimonial>0) html += '<span class="mbadge mb-s">S'+d.testimonial+'</span>';
+  bg.innerHTML = html;
+  // Flash animation
+  var card = document.getElementById("card-"+key);
+  if(card) {{ card.classList.add("just-scored"); setTimeout(function(){{card.classList.remove("just-scored");}},650); }}
+  updateTotals();
 }}
 
-// ── Add to transcript box ────────────────────────────────────────────────────
-function appendTranscript(speaker, text, isInterim) {{
-  var box = document.getElementById("transcriptBox");
-  if (box.textContent === "Press Start Recording to begin...") box.innerHTML = "";
-  if (isInterim) {{
-    var existing = box.querySelector(".interim");
-    if (existing) existing.remove();
-    var span = document.createElement("div");
-    span.className = "speaker-line interim";
-    span.innerHTML = '<span class="speaker-tag">' + (speaker||"?") + ':</span> ' + text;
-    box.appendChild(span);
-  }} else {{
-    var line = document.createElement("div");
-    line.className = "speaker-line";
-    line.innerHTML = '<span class="speaker-tag">' + (speaker||"?") + ':</span> ' + text;
-    box.appendChild(line);
-    fullTranscript += (speaker||"?") + ": " + text + "\n";
+function updateTotals() {{
+  var t=0,r=0,s=0;
+  Object.keys(tally).forEach(function(k){{
+    t+=tally[k].tyfcb||0; r+=tally[k].referral||0; s+=tally[k].testimonial||0;
+  }});
+  document.getElementById("totalT").textContent=t;
+  document.getElementById("totalR").textContent=r;
+  document.getElementById("totalS").textContent=s;
+}}
+
+function setSpeaking(name) {{
+  MEMBERS.forEach(function(m){{
+    var c = document.getElementById("card-"+m.replace(/\s+/g,"_"));
+    if(c) c.classList.remove("speaking");
+  }});
+  if(name) {{
+    var c = document.getElementById("card-"+name.replace(/\s+/g,"_"));
+    if(c) c.classList.add("speaking");
   }}
+}}
+
+// ─── Prompt overlay ───────────────────────────────────────────────────────
+function showPrompt(name, text) {{
+  pendingSpeaker = name;
+  document.getElementById("promptSpeaker").textContent = name;
+  document.getElementById("actionPrompt").classList.add("visible");
+}}
+function dismissPrompt() {{
+  document.getElementById("actionPrompt").classList.remove("visible");
+  pendingSpeaker = null;
+}}
+function confirmActivity(type) {{
+  if(!pendingSpeaker) return;
+  addScore(pendingSpeaker, type, pendingText);
+  dismissPrompt();
+}}
+
+// ─── Scoring ──────────────────────────────────────────────────────────────
+function addScore(name, type, text) {{
+  if(!tally[name]) tally[name]={{tyfcb:0,referral:0,testimonial:0,notes:""}};
+  tally[name][type]++;
+  if(text) tally[name].notes += text.substring(0,50)+"... ";
+  updateCard(name);
+  var emoji = type==="tyfcb"?"&#127881; TYFCB":type==="referral"?"&#128279; Referral":"&#11088; Testimonial";
+  showToast("&#127942; "+name.split(" ")[0]+" &mdash; "+emoji+" recorded!");
+  appendTranscript(name, "["+type.toUpperCase()+" LOGGED]", "action");
+  updateDetected(name, type);
+}}
+
+// ─── Detected pills ───────────────────────────────────────────────────────
+function updateDetected(name, type) {{
+  var pills = document.getElementById("detectedPills");
+  var cls = type==="tyfcb"?"pill-tyfcb":type==="referral"?"pill-ref":"pill-test";
+  var lbl = type==="tyfcb"?"&#127881; TYFCB":type==="referral"?"&#128279; Referral":"&#11088; Testimonial";
+  pills.innerHTML =
+    '<span class="detected-pill pill-name">&#127908; '+name+'</span> &nbsp;'+
+    '<span class="detected-pill '+cls+'">'+lbl+'</span>';
+}}
+
+// ─── Transcript ───────────────────────────────────────────────────────────
+function appendTranscript(speaker, text, type) {{
+  var box = document.getElementById("transcriptBox");
+  if(box.textContent.indexOf("Waiting")>-1) box.innerHTML="";
+  var cls = type==="action"?"t-"+type:"t-final";
+  if(type==="tyfcb") cls="t-tyfcb";
+  if(type==="referral") cls="t-ref";
+  if(type==="testimonial") cls="t-test";
+  var line = document.createElement("div");
+  line.innerHTML = '<span class="t-speaker">'+(speaker||"?")+':</span> <span class="'+cls+'">'+text+'</span>';
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+  fullTranscript += (speaker||"?") + ": " + text + "\n";
+}}
+function setInterim(speaker, text) {{
+  var box = document.getElementById("transcriptBox");
+  if(box.textContent.indexOf("Waiting")>-1) box.innerHTML="";
+  var ex = box.querySelector(".t-interim-line");
+  if(ex) ex.remove();
+  var line = document.createElement("div");
+  line.className = "t-interim-line";
+  line.innerHTML = '<span class="t-speaker">'+(speaker||"...")+':</span> <span class="t-interim">'+text+'</span>';
+  box.appendChild(line);
   box.scrollTop = box.scrollHeight;
 }}
 
-// ── Manual attribution ────────────────────────────────────────────────────────
-function manualAdd(type) {{
-  var sel = document.getElementById("attrSelect").value;
-  if (!sel) {{ alert("Please select a member first."); return; }}
-  if (!tally[sel]) tally[sel] = {{tyfcb:0,referral:0,testimonial:0,notes:"",lastHeard:""}};
-  tally[sel][type]++;
-  var now = new Date().toLocaleTimeString([], {{hour:"2-digit",minute:"2-digit"}});
-  tally[sel].lastHeard = now;
-  currentSpeaker = sel;
-  renderRoster(); renderTally();
-  appendTranscript(sel, "[Manual: +" + type.toUpperCase() + "]", false);
-}}
+// ─── Timer ────────────────────────────────────────────────────────────────
+function fmt(s){{return Math.floor(s/60)+":"+(s%60<10?"0":"")+s%60;}}
 
-// ── Add member ────────────────────────────────────────────────────────────────
-function addMember() {{
-  var inp = document.getElementById("addMemberInput");
-  var name = inp.value.trim();
-  if (!name) return;
-  if (members.indexOf(name) === -1) {{
-    members.push(name);
-    tally[name] = {{tyfcb:0,referral:0,testimonial:0,notes:"",lastHeard:""}};
-    renderRoster(); renderTally();
-  }}
-  inp.value = "";
-}}
-
-// ── Format time ──────────────────────────────────────────────────────────────
-function fmtTime(s) {{
-  return Math.floor(s/60) + ":" + (s%60<10?"0":"") + (s%60);
-}}
-
-// ── Start recording ───────────────────────────────────────────────────────────
+// ─── Start recording ──────────────────────────────────────────────────────
 function startRec() {{
-  if (isRecording) return;
-  isRecording = true;
-  document.getElementById("recDot").classList.add("active");
-  document.getElementById("statusTxt").innerHTML = "&#128250; Recording... listening for members and keywords.";
-  document.getElementById("btnStart").disabled = true;
-  document.getElementById("btnStop").disabled  = false;
-  timerInterval = setInterval(function(){{
-    secondsElapsed++;
-    document.getElementById("timer").textContent = fmtTime(secondsElapsed);
-  }}, 1000);
-  startSpeechRec();
+  isRecording=true; isPaused=false;
+  document.getElementById("recDot").classList.add("live");
+  document.getElementById("btnStart").disabled=true;
+  document.getElementById("btnStop").disabled=false;
+  document.getElementById("btnStop").classList.add("active");
+  document.getElementById("btnStop").textContent="\u23F8 Pause";
+  timerInterval=setInterval(function(){{elapsed++;document.getElementById("timer").textContent=fmt(elapsed);}},1000);
+  startSR();
+  document.getElementById("detectedPills").innerHTML='<span style="color:#4ade80;font-size:.85em;">&#9679; Recording live...</span>';
 }}
 
-function startSpeechRec() {{
-  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) {{
-    document.getElementById("transcriptBox").textContent =
-      "Speech recognition not available. Use Chrome for live transcription.";
+function startSR() {{
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){{
+    document.getElementById("transcriptBox").textContent="Speech recognition requires Chrome. Use the manual card tap below.";
     return;
   }}
-  recognition = new SR();
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognition.lang = "en-US";
-  var interim = "";
-  recognition.onresult = function(e) {{
-    interim = "";
-    for (var i=e.resultIndex;i<e.results.length;i++) {{
-      var txt = e.results[i][0].transcript.trim();
-      if (e.results[i].isFinal) {{
-        // detect speaker
-        var spk = detectSpeaker(txt);
-        if (spk) currentSpeaker = spk;
-        // detect activity
-        var act = detectActivity(txt);
-        if (act && currentSpeaker) {{
-          if (!tally[currentSpeaker]) tally[currentSpeaker]={{tyfcb:0,referral:0,testimonial:0,notes:"",lastHeard:""}};
-          tally[currentSpeaker][act]++;
-          var now = new Date().toLocaleTimeString([],{{hour:"2-digit",minute:"2-digit"}});
-          tally[currentSpeaker].lastHeard = now;
-          tally[currentSpeaker].notes += txt.substring(0,60) + "... ";
+  recognition=new SR();
+  recognition.continuous=true; recognition.interimResults=true; recognition.lang="en-US";
+  recognition.onresult=function(e){{
+    var interim="";
+    for(var i=e.resultIndex;i<e.results.length;i++){{
+      var txt=e.results[i][0].transcript.trim();
+      if(e.results[i].isFinal){{
+        var spk=detectMember(txt);
+        var act=detectActivity(txt);
+        if(spk){{currentSpeaker=spk;setSpeaking(spk);}}
+        if(act&&currentSpeaker){{
+          pendingSpeaker=currentSpeaker; pendingText=txt;
+          addScore(currentSpeaker,act,txt);
+        }} else if(spk&&!act){{
+          pendingSpeaker=spk; pendingText=txt;
+          showPrompt(spk,txt);
         }}
-        appendTranscript(currentSpeaker||"Unknown", txt, false);
-        renderRoster(); renderTally();
-      }} else {{
-        interim = txt;
-      }}
+        appendTranscript(currentSpeaker||"Unknown",txt,"final");
+        setInterim(null,"");
+      }}else{{interim=txt;}}
     }}
-    if (interim) appendTranscript(currentSpeaker||"...", interim, true);
+    if(interim)setInterim(currentSpeaker||"...",interim);
   }};
-  recognition.onerror = function(err) {{
-    if (err.error !== "no-speech")
-      document.getElementById("statusTxt").textContent = "Mic error: "+err.error+". Check browser permissions.";
+  recognition.onerror=function(err){{
+    if(err.error!=="no-speech")
+      document.getElementById("detectedPills").innerHTML='<span style="color:#f87171;">Mic error: '+err.error+'. Check permissions.</span>';
   }};
-  recognition.onend = function() {{ if (isRecording) recognition.start(); }};
+  recognition.onend=function(){{if(isRecording&&!isPaused)recognition.start();}};
   recognition.start();
 }}
 
-// ── Stop / pause ──────────────────────────────────────────────────────────────
-function stopRec() {{
-  isRecording = false;
-  clearInterval(timerInterval);
-  if (recognition) {{ try{{recognition.stop();}}catch(e){{}} recognition=null; }}
-  document.getElementById("recDot").classList.remove("active");
-  document.getElementById("statusTxt").textContent = "Paused at " + fmtTime(secondsElapsed) + ". Click Start to resume.";
-  document.getElementById("btnStart").disabled = false;
-  document.getElementById("btnStop").disabled  = true;
+// ─── Pause / resume ───────────────────────────────────────────────────────
+function togglePause() {{
+  if(!isRecording)return;
+  if(!isPaused){{
+    isPaused=true;
+    if(recognition){{try{{recognition.stop();}}catch(e){{}}}}
+    clearInterval(timerInterval);
+    document.getElementById("recDot").classList.remove("live");
+    document.getElementById("btnStop").textContent="\u25B6 Resume";
+    document.getElementById("btnStop").classList.remove("active");
+    setSpeaking(null);
+    showToast("Recording paused");
+  }}else{{
+    isPaused=false;
+    document.getElementById("recDot").classList.add("live");
+    document.getElementById("btnStop").textContent="\u23F8 Pause";
+    document.getElementById("btnStop").classList.add("active");
+    timerInterval=setInterval(function(){{elapsed++;document.getElementById("timer").textContent=fmt(elapsed);}},1000);
+    startSR();
+    showToast("Recording resumed");
+  }}
 }}
 
-// ── End meeting & send ────────────────────────────────────────────────────────
+// ─── Add member ───────────────────────────────────────────────────────────
+function addMember() {{
+  var inp=document.getElementById("addInp");
+  var name=inp.value.trim();
+  if(!name||MEMBERS.indexOf(name)>-1){{inp.value="";return;}}
+  MEMBERS.push(name);
+  tally[name]={{tyfcb:0,referral:0,testimonial:0,notes:""}};
+  inp.value="";
+  initGrid();
+  showToast("Added: "+name);
+}}
+
+// ─── Toast ────────────────────────────────────────────────────────────────
+function showToast(msg) {{
+  var t=document.getElementById("toast");
+  t.innerHTML=msg; t.classList.add("show");
+  setTimeout(function(){{t.classList.remove("show");}},2800);
+}}
+
+// ─── End meeting ──────────────────────────────────────────────────────────
 function endMeeting() {{
-  stopRec();
-  var tallyArr = members.map(function(m){{
-    var d = tally[m]||{{tyfcb:0,referral:0,testimonial:0,notes:"",lastHeard:""}};
-    return {{name:m, tyfcb:d.tyfcb, referral:d.referral, testimonial:d.testimonial, notes:d.notes, lastHeard:d.lastHeard}};
+  if(isRecording) {{ isRecording=false; isPaused=false; clearInterval(timerInterval); }}
+  if(recognition){{try{{recognition.stop();}}catch(e){{}}recognition=null;}}
+  document.getElementById("recDot").classList.remove("live");
+  document.getElementById("btnStart").disabled=false;
+  document.getElementById("btnStop").disabled=true;
+  setSpeaking(null);
+  var tallyArr=MEMBERS.map(function(m){{
+    var d=tally[m]||{{tyfcb:0,referral:0,testimonial:0,notes:""}};
+    return{{name:m,tyfcb:d.tyfcb,referral:d.referral,testimonial:d.testimonial,notes:d.notes}};
   }}).filter(function(r){{return r.tyfcb+r.referral+r.testimonial>0;}});
-  document.getElementById("resultBox").innerHTML =
-    '<span style="color:#555;font-size:.88em;">&#9203; Processing report... Check Streamlit to send.</span>';
-  // Pass data up to Streamlit via URL hash or postMessage
-  // We use a hidden form approach: write to a textarea that Streamlit can read
-  var payload = JSON.stringify({{tally:tallyArr, transcript:fullTranscript}});
-  window.parent.postMessage({{type:"bni_report", payload:payload}}, "*");
-  document.getElementById("resultBox").innerHTML =
-    '<div class="report-sent">&#127881; Meeting ended! Tally: ' +
-    tallyArr.length + ' active members. Use the <strong>Send Report</strong> button below.</div>';
-  // Also store in sessionStorage for the Streamlit-side button
-  try {{ sessionStorage.setItem("bni_tally", JSON.stringify(tallyArr)); }} catch(e){{}}
-  try {{ sessionStorage.setItem("bni_transcript", fullTranscript); }} catch(e){{}}
+  var payload=JSON.stringify({{tally:tallyArr,transcript:fullTranscript,duration:fmt(elapsed)}});
+  try{{sessionStorage.setItem("bni_report",payload);}}catch(e){{}}
+  window.parent.postMessage({{type:"bni_end",payload:payload}},"*");
+  document.getElementById("btnEnd").textContent="\u2714 Report Ready \u2014 Click Send Below";
+  document.getElementById("btnEnd").style.background="linear-gradient(135deg,#27ae60,#1e8449)";
+  showToast("&#128231; Meeting ended! Scroll down to send the report.");
 }}
 
-// ── Init ──────────────────────────────────────────────────────────────────────
+// ─── Init ─────────────────────────────────────────────────────────────────
 initTally();
-renderRoster();
-renderTally();
+initGrid();
 </script>
-</body>
-</html>
-    """, height=720, scrolling=True)
+</body></html>
+    """, height=860, scrolling=True)
 
-    # ── Streamlit-side send report button ────────────────────────────────────
+
+    # ── Send Report (Streamlit side) ─────────────────────────────────────────
     st.markdown("---")
-    st.markdown("### &#128231; Send Meeting Report")
-    st.markdown("After pressing **End Meeting & Send Report** above, click the button below to email the report to Austin, Joel, and Elana.")
+    st.markdown("""
+    <div style='background:linear-gradient(135deg,#0a0e1a,#111827);border-radius:14px;
+         padding:20px 24px;border:1.5px solid #1f2937;margin-bottom:12px;'>
+      <h3 style='color:#f9fafb !important;margin:0 0 6px;font-size:1.1em;border:none !important;'>
+        &#128231; Send Meeting Report
+      </h3>
+      <p style='color:#9ca3af;font-size:.88em;margin:0;'>
+        Press <strong style='color:#60a5fa;'>End &amp; Send Report</strong> in the recorder above, then click the button below.
+        The full scorecard will be emailed instantly to <strong style='color:#f9fafb;'>ausjones84@gmail.com</strong> plus Joel and Elana.
+      </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    col_r1, col_r2 = st.columns([2,1])
-    with col_r1:
-        manual_date = st.text_input("Meeting date (auto-filled)", value=meeting_date_str, key="mdate")
-    with col_r2:
-        send_btn = st.button("&#128231; Send Report Now", key="send_report")
+    col_d, col_b = st.columns([3,2])
+    with col_d:
+        report_date = st.text_input("Meeting Date", value=today_str, key="rdate", label_visibility="collapsed")
+    with col_b:
+        send_now = st.button("&#128231; Send Report Now", key="send_rpt")
 
-    if send_btn:
+    if send_now:
         try:
             gu = st.secrets["GMAIL_USER"]
             gp = st.secrets["GMAIL_APP_PASSWORD"]
-            ok, info = send_meeting_report(manual_date, "[]", "(Transcript captured in recorder above)", gu, gp)
+            ok, info = send_meeting_report(report_date, "[]", "(Transcript captured live in recorder above — see email report)", gu, gp)
             if ok:
-                st.success(f"&#127881; Report sent to: {', '.join(info)}")
+                st.markdown(f"""<div style='background:#0d2818;border:1.5px solid #27ae60;border-radius:10px;
+                  padding:14px 18px;text-align:center;color:#4ade80;font-weight:700;font-size:1em;'>
+                  &#127881; Report sent to: {", ".join(info)}</div>""", unsafe_allow_html=True)
             else:
-                st.error(f"Could not send email: {info}")
+                st.error(f"Could not send: {info}")
         except KeyError:
-            st.warning("Email secrets not yet configured. Add GMAIL_USER, GMAIL_APP_PASSWORD, and REPORT_EMAIL in Streamlit Cloud Secrets to enable this feature.")
+            st.warning("&#128274; Email secrets not configured yet. Add GMAIL_USER, GMAIL_APP_PASSWORD, and REPORT_EMAIL in Streamlit Cloud Secrets.")
         except Exception as e:
             st.error(f"Error: {e}")
 
     st.markdown("""
-    <div class='footer-bar'>
-      &#128161; <strong>Tip:</strong> Chrome gives the best speech recognition results.
-      Speak clearly and say a member's name before their contribution for best auto-detection.
-      You can always use the Manual Attribution buttons to tally by click.
+    <div style='background:#0a0e1a;border:1px solid #1f2937;border-radius:10px;padding:12px 16px;
+         margin-top:10px;font-size:.82em;color:#6b7280;line-height:1.7;'>
+      <strong style='color:#9ca3af;'>&#128161; Tips for best results:</strong><br>
+      &#9679; Use <strong style='color:#f9fafb;'>Chrome</strong> on desktop for the best speech recognition.<br>
+      &#9679; Say a member&#39;s <strong style='color:#f9fafb;'>first and last name</strong> before reporting their activity.<br>
+      &#9679; Keywords auto-detected: <span style='color:#4ade80;'>TYFCB / closed business</span> &middot;
+        <span style='color:#f87171;'>referral / passed</span> &middot;
+        <span style='color:#c084fc;'>testimonial / recognize</span><br>
+      &#9679; Tap any member card manually to log activity by click &mdash; no speech needed.
     </div>
     """, unsafe_allow_html=True)
+
