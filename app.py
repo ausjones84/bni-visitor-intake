@@ -391,127 +391,127 @@ elif st.session_state["page"] == "recorder":
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BNI Meeting Recorder</title>
 <style>
-*{{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;}}
-body{{background:#0a0e1a;color:#e8edf3;min-height:100vh;padding:12px;}}
+*{{{{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;}}}}
+body{{{{background:#0a0e1a;color:#e8edf3;min-height:100vh;padding:12px;}}}}
 /* ── Header bar ── */
-.top-bar{{display:flex;align-items:center;gap:12px;background:#111827;border-radius:12px;
-  padding:12px 18px;margin-bottom:12px;border:1px solid #1f2937;}}
-.bni-badge{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;font-weight:900;
-  font-size:.9em;padding:5px 14px;border-radius:8px;letter-spacing:2px;flex-shrink:0;}}
-.meeting-title{{flex:1;font-size:1em;font-weight:700;color:#f9fafb;}}
-.meeting-date{{font-size:.82em;color:#6b7280;}}
-.rec-status{{display:flex;align-items:center;gap:8px;margin-left:auto;}}
-.rec-dot{{width:12px;height:12px;border-radius:50%;background:#374151;flex-shrink:0;transition:background .3s;}}
-.rec-dot.live{{background:#ef4444;animation:blink .9s infinite;}}
-@keyframes blink{{0%,100%{{opacity:1;}}50%{{opacity:.15;}}}}
-.timer{{font-family:monospace;font-size:1.1em;font-weight:700;color:#60a5fa;min-width:50px;}}
+.top-bar{{{{display:flex;align-items:center;gap:12px;background:#111827;border-radius:12px;
+  padding:12px 18px;margin-bottom:12px;border:1px solid #1f2937;}}}}
+.bni-badge{{{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;font-weight:900;
+  font-size:.9em;padding:5px 14px;border-radius:8px;letter-spacing:2px;flex-shrink:0;}}}}
+.meeting-title{{{{flex:1;font-size:1em;font-weight:700;color:#f9fafb;}}}}
+.meeting-date{{{{font-size:.82em;color:#6b7280;}}}}
+.rec-status{{{{display:flex;align-items:center;gap:8px;margin-left:auto;}}}}
+.rec-dot{{{{width:12px;height:12px;border-radius:50%;background:#374151;flex-shrink:0;transition:background .3s;}}}}
+.rec-dot.live{{{{background:#ef4444;animation:blink .9s infinite;}}}}
+@keyframes blink{{{{0%,100%{{{{opacity:1;}}}}50%{{{{opacity:.15;}}}}}}}}
+.timer{{{{font-family:monospace;font-size:1.1em;font-weight:700;color:#60a5fa;min-width:50px;}}}}
 /* ── Detected badge ── */
-.detected-wrap{{background:#111827;border-radius:12px;padding:10px 16px;margin-bottom:12px;
-  border:1px solid #1f2937;display:flex;align-items:center;gap:12px;min-height:54px;}}
-.detected-label{{font-size:.75em;color:#6b7280;font-weight:600;letter-spacing:.5px;flex-shrink:0;}}
-.detected-pill{{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:4px 14px;
-  font-weight:700;font-size:.88em;animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}}
-@keyframes popIn{{from{{opacity:0;transform:scale(.7);}}to{{opacity:1;transform:scale(1);}}}}
-.pill-tyfcb{{background:rgba(39,174,96,.2);border:2px solid #27ae60;color:#4ade80;}}
-.pill-ref{{background:rgba(200,16,46,.2);border:2px solid #C8102E;color:#f87171;}}
-.pill-test{{background:rgba(142,68,173,.2);border:2px solid #8e44ad;color:#c084fc;}}
-.pill-name{{background:rgba(26,86,219,.2);border:2px solid #1a56db;color:#60a5fa;}}
+.detected-wrap{{{{background:#111827;border-radius:12px;padding:10px 16px;margin-bottom:12px;
+  border:1px solid #1f2937;display:flex;align-items:center;gap:12px;min-height:54px;}}}}
+.detected-label{{{{font-size:.75em;color:#6b7280;font-weight:600;letter-spacing:.5px;flex-shrink:0;}}}}
+.detected-pill{{{{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:4px 14px;
+  font-weight:700;font-size:.88em;animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}}}}
+@keyframes popIn{{{{from{{{{opacity:0;transform:scale(.7);}}}}to{{{{opacity:1;transform:scale(1);}}}}}}}}
+.pill-tyfcb{{{{background:rgba(39,174,96,.2);border:2px solid #27ae60;color:#4ade80;}}}}
+.pill-ref{{{{background:rgba(200,16,46,.2);border:2px solid #C8102E;color:#f87171;}}}}
+.pill-test{{{{background:rgba(142,68,173,.2);border:2px solid #8e44ad;color:#c084fc;}}}}
+.pill-name{{{{background:rgba(26,86,219,.2);border:2px solid #1a56db;color:#60a5fa;}}}}
 /* ── Live transcript ── */
-.transcript-wrap{{background:#111827;border-radius:12px;padding:10px 14px;margin-bottom:12px;
-  border:1px solid #1f2937;}}
-.transcript-hdr{{font-size:.73em;color:#6b7280;font-weight:700;letter-spacing:.5px;margin-bottom:6px;}}
-.transcript-body{{font-family:monospace;font-size:.83em;color:#93c5fd;white-space:pre-wrap;
-  max-height:110px;overflow-y:auto;line-height:1.6;}}
-.t-final{{color:#e2e8f0;}}
-.t-interim{{color:#6b7280;font-style:italic;}}
-.t-speaker{{color:#60a5fa;font-weight:700;}}
-.t-tyfcb{{color:#4ade80;font-weight:700;}}
-.t-ref{{color:#f87171;font-weight:700;}}
-.t-test{{color:#c084fc;font-weight:700;}}
+.transcript-wrap{{{{background:#111827;border-radius:12px;padding:10px 14px;margin-bottom:12px;
+  border:1px solid #1f2937;}}}}
+.transcript-hdr{{{{font-size:.73em;color:#6b7280;font-weight:700;letter-spacing:.5px;margin-bottom:6px;}}}}
+.transcript-body{{{{font-family:monospace;font-size:.83em;color:#93c5fd;white-space:pre-wrap;
+  max-height:110px;overflow-y:auto;line-height:1.6;}}}}
+.t-final{{{{color:#e2e8f0;}}}}
+.t-interim{{{{color:#6b7280;font-style:italic;}}}}
+.t-speaker{{{{color:#60a5fa;font-weight:700;}}}}
+.t-tyfcb{{{{color:#4ade80;font-weight:700;}}}}
+.t-ref{{{{color:#f87171;font-weight:700;}}}}
+.t-test{{{{color:#c084fc;font-weight:700;}}}}
 /* ── Action prompt overlay ── */
-.action-prompt{{background:#1f2937;border-radius:12px;padding:10px 16px;margin-bottom:12px;
-  border:1px solid #374151;display:none;}}
-.action-prompt.visible{{display:block;animation:slideIn .25s ease;}}
-@keyframes slideIn{{from{{opacity:0;transform:translateY(-8px);}}to{{opacity:1;transform:translateY(0);}}}}
-.action-prompt-title{{font-size:.82em;color:#9ca3af;margin-bottom:8px;}}
-.action-prompt strong{{color:#f9fafb;font-size:.95em;}}
-.action-btns{{display:flex;gap:8px;flex-wrap:wrap;}}
-.act-btn{{border:none;border-radius:8px;padding:8px 16px;font-size:.85em;font-weight:700;
-  cursor:pointer;transition:all .18s;}}
-.act-btn:hover{{transform:translateY(-1px);opacity:.9;}}
-.act-tyfcb{{background:linear-gradient(135deg,#27ae60,#1e8449);color:white;}}
-.act-ref{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}
-.act-test{{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}}
-.act-cancel{{background:#374151;color:#9ca3af;}}
+.action-prompt{{{{background:#1f2937;border-radius:12px;padding:10px 16px;margin-bottom:12px;
+  border:1px solid #374151;display:none;}}}}
+.action-prompt.visible{{{{display:block;animation:slideIn .25s ease;}}}}
+@keyframes slideIn{{{{from{{{{opacity:0;transform:translateY(-8px);}}}}to{{{{opacity:1;transform:translateY(0);}}}}}}}}
+.action-prompt-title{{{{font-size:.82em;color:#9ca3af;margin-bottom:8px;}}}}
+.action-prompt strong{{{{color:#f9fafb;font-size:.95em;}}}}
+.action-btns{{{{display:flex;gap:8px;flex-wrap:wrap;}}}}
+.act-btn{{{{border:none;border-radius:8px;padding:8px 16px;font-size:.85em;font-weight:700;
+  cursor:pointer;transition:all .18s;}}}}
+.act-btn:hover{{{{transform:translateY(-1px);opacity:.9;}}}}
+.act-tyfcb{{{{background:linear-gradient(135deg,#27ae60,#1e8449);color:white;}}}}
+.act-ref{{{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}}}
+.act-test{{{{background:linear-gradient(135deg,#8e44ad,#6c3483);color:white;}}}}
+.act-cancel{{{{background:#374151;color:#9ca3af;}}}}
 /* ── Scoreboard ── */
-.scoreboard-hdr{{font-size:.85em;color:#9ca3af;font-weight:700;letter-spacing:.5px;
-  margin-bottom:10px;display:flex;align-items:center;gap:8px;}}
-.score-totals{{display:flex;gap:8px;margin-bottom:14px;}}
-.total-pill{{flex:1;text-align:center;border-radius:10px;padding:10px 6px;}}
-.total-pill .num{{font-size:1.8em;font-weight:900;line-height:1;}}
-.total-pill .lbl{{font-size:.72em;opacity:.85;margin-top:3px;}}
-.tp-t{{background:rgba(39,174,96,.15);border:1.5px solid #27ae60;}}
-.tp-r{{background:rgba(200,16,46,.15);border:1.5px solid #C8102E;}}
-.tp-s{{background:rgba(142,68,173,.15);border:1.5px solid #8e44ad;}}
+.scoreboard-hdr{{{{font-size:.85em;color:#9ca3af;font-weight:700;letter-spacing:.5px;
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;}}}}
+.score-totals{{{{display:flex;gap:8px;margin-bottom:14px;}}}}
+.total-pill{{{{flex:1;text-align:center;border-radius:10px;padding:10px 6px;}}}}
+.total-pill .num{{{{font-size:1.8em;font-weight:900;line-height:1;}}}}
+.total-pill .lbl{{{{font-size:.72em;opacity:.85;margin-top:3px;}}}}
+.tp-t{{{{background:rgba(39,174,96,.15);border:1.5px solid #27ae60;}}}}
+.tp-r{{{{background:rgba(200,16,46,.15);border:1.5px solid #C8102E;}}}}
+.tp-s{{{{background:rgba(142,68,173,.15);border:1.5px solid #8e44ad;}}}}
 /* ── Member cards grid ── */
-.members-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;
-  margin-bottom:14px;}}
-.member-card{{background:#111827;border:2px solid #1f2937;border-radius:12px;
-  padding:12px 10px;text-align:center;cursor:pointer;transition:all .22s;position:relative;}}
-.member-card:hover{{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.4);}}
-.member-card.speaking{{border-color:#60a5fa;background:#1e2d4a;
-  box-shadow:0 0 0 3px rgba(96,165,250,.35);animation:cardPulse .8s infinite;}}
-.member-card.just-scored{{animation:scoreFlash .6s ease;}}
-@keyframes cardPulse{{0%,100%{{box-shadow:0 0 0 3px rgba(96,165,250,.35);}}50%{{box-shadow:0 0 0 6px rgba(96,165,250,.1);}}}}
-@keyframes scoreFlash{{0%{{background:#1f2937;}}30%{{background:#1c3a2a;border-color:#27ae60;}}100%{{background:#111827;}}}}
-.member-avatar{{width:42px;height:42px;border-radius:50%;margin:0 auto 6px;
+.members-grid{{{{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;
+  margin-bottom:14px;}}}}
+.member-card{{{{background:#111827;border:2px solid #1f2937;border-radius:12px;
+  padding:12px 10px;text-align:center;cursor:pointer;transition:all .22s;position:relative;}}}}
+.member-card:hover{{{{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.4);}}}}
+.member-card.speaking{{{{border-color:#60a5fa;background:#1e2d4a;
+  box-shadow:0 0 0 3px rgba(96,165,250,.35);animation:cardPulse .8s infinite;}}}}
+.member-card.just-scored{{{{animation:scoreFlash .6s ease;}}}}
+@keyframes cardPulse{{{{0%,100%{{{{box-shadow:0 0 0 3px rgba(96,165,250,.35);}}}}50%{{{{box-shadow:0 0 0 6px rgba(96,165,250,.1);}}}}}}}}
+@keyframes scoreFlash{{{{0%{{{{background:#1f2937;}}}}30%{{{{background:#1c3a2a;border-color:#27ae60;}}}}100%{{{{background:#111827;}}}}}}}}
+.member-avatar{{{{width:42px;height:42px;border-radius:50%;margin:0 auto 6px;
   display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1em;
-  background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}
-.member-card.speaking .member-avatar{{background:linear-gradient(135deg,#1a56db,#1e3a8a);}}
-.member-nm{{font-size:.82em;font-weight:700;color:#f3f4f6;margin-bottom:6px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}
-.member-badges{{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;min-height:22px;}}
-.mbadge{{border-radius:10px;padding:2px 7px;font-size:.7em;font-weight:800;}}
-.mb-t{{background:#27ae60;color:white;}}
-.mb-r{{background:#C8102E;color:white;}}
-.mb-s{{background:#8e44ad;color:white;}}
-.member-total{{position:absolute;top:6px;right:8px;font-size:.7em;font-weight:800;
-  color:#60a5fa;opacity:.8;}}
+  background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}}}
+.member-card.speaking .member-avatar{{{{background:linear-gradient(135deg,#1a56db,#1e3a8a);}}}}
+.member-nm{{{{font-size:.82em;font-weight:700;color:#f3f4f6;margin-bottom:6px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}}}}
+.member-badges{{{{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;min-height:22px;}}}}
+.mbadge{{{{border-radius:10px;padding:2px 7px;font-size:.7em;font-weight:800;}}}}
+.mb-t{{{{background:#27ae60;color:white;}}}}
+.mb-r{{{{background:#C8102E;color:white;}}}}
+.mb-s{{{{background:#8e44ad;color:white;}}}}
+.member-total{{{{position:absolute;top:6px;right:8px;font-size:.7em;font-weight:800;
+  color:#60a5fa;opacity:.8;}}}}
 /* ── Speaking indicator on card ── */
-.speaking-wave{{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
-  display:none;gap:2px;}}
-.member-card.speaking .speaking-wave{{display:flex;}}
-.sw{{width:3px;border-radius:2px;background:#60a5fa;animation:wave .7s infinite ease-in-out;}}
-.sw:nth-child(1){{height:6px;animation-delay:0s;}}
-.sw:nth-child(2){{height:12px;animation-delay:.15s;}}
-.sw:nth-child(3){{height:8px;animation-delay:.3s;}}
-.sw:nth-child(4){{height:14px;animation-delay:.1s;}}
-.sw:nth-child(5){{height:5px;animation-delay:.25s;}}
-@keyframes wave{{0%,100%{{transform:scaleY(.4);}}50%{{transform:scaleY(1);}}}}
+.speaking-wave{{{{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+  display:none;gap:2px;}}}}
+.member-card.speaking .speaking-wave{{{{display:flex;}}}}
+.sw{{{{width:3px;border-radius:2px;background:#60a5fa;animation:wave .7s infinite ease-in-out;}}}}
+.sw:nth-child(1){{{{height:6px;animation-delay:0s;}}}}
+.sw:nth-child(2){{{{height:12px;animation-delay:.15s;}}}}
+.sw:nth-child(3){{{{height:8px;animation-delay:.3s;}}}}
+.sw:nth-child(4){{{{height:14px;animation-delay:.1s;}}}}
+.sw:nth-child(5){{{{height:5px;animation-delay:.25s;}}}}
+@keyframes wave{{{{0%,100%{{{{transform:scaleY(.4);}}}}50%{{{{transform:scaleY(1);}}}}}}}}
 /* ── Add member ── */
-.add-member-row{{display:flex;gap:8px;margin-bottom:14px;}}
-.add-member-inp{{flex:1;background:#1f2937;border:1.5px solid #374151;border-radius:8px;
-  padding:8px 12px;color:#f3f4f6;font-size:.88em;outline:none;}}
-.add-member-inp:focus{{border-color:#1a56db;}}
-.add-member-inp::placeholder{{color:#6b7280;}}
-.add-member-btn{{background:#1a56db;color:white;border:none;border-radius:8px;
-  padding:8px 16px;font-size:.88em;font-weight:700;cursor:pointer;}}
+.add-member-row{{{{display:flex;gap:8px;margin-bottom:14px;}}}}
+.add-member-inp{{{{flex:1;background:#1f2937;border:1.5px solid #374151;border-radius:8px;
+  padding:8px 12px;color:#f3f4f6;font-size:.88em;outline:none;}}}}
+.add-member-inp:focus{{{{border-color:#1a56db;}}}}
+.add-member-inp::placeholder{{{{color:#6b7280;}}}}
+.add-member-btn{{{{background:#1a56db;color:white;border:none;border-radius:8px;
+  padding:8px 16px;font-size:.88em;font-weight:700;cursor:pointer;}}}}
 /* ── Controls ── */
-.controls{{display:flex;gap:10px;margin-bottom:14px;}}
-.ctrl-btn{{flex:1;border:none;border-radius:10px;padding:13px 0;font-size:.95em;
-  font-weight:700;cursor:pointer;transition:all .2s;}}
-.ctrl-btn:hover{{transform:translateY(-2px);opacity:.9;}}
-.ctrl-btn:disabled{{opacity:.4;cursor:not-allowed;transform:none;}}
-.btn-start{{background:linear-gradient(135deg,#27ae60,#1e8449);color:white;}}
-.btn-stop{{background:linear-gradient(135deg,#374151,#1f2937);color:#9ca3af;border:1.5px solid #374151;}}
-.btn-stop.active{{background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border:none;}}
-.btn-end{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}
+.controls{{{{display:flex;gap:10px;margin-bottom:14px;}}}}
+.ctrl-btn{{{{flex:1;border:none;border-radius:10px;padding:13px 0;font-size:.95em;
+  font-weight:700;cursor:pointer;transition:all .2s;}}}}
+.ctrl-btn:hover{{{{transform:translateY(-2px);opacity:.9;}}}}
+.ctrl-btn:disabled{{{{opacity:.4;cursor:not-allowed;transform:none;}}}}
+.btn-start{{{{background:linear-gradient(135deg,#27ae60,#1e8449);color:white;}}}}
+.btn-stop{{{{background:linear-gradient(135deg,#374151,#1f2937);color:#9ca3af;border:1.5px solid #374151;}}}}
+.btn-stop.active{{{{background:linear-gradient(135deg,#f59e0b,#d97706);color:white;border:none;}}}}
+.btn-end{{{{background:linear-gradient(135deg,#C8102E,#8b0000);color:white;}}}}
 /* ── Toast notification ── */
-.toast{{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);
+.toast{{{{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);
   background:#111827;border:1.5px solid #374151;border-radius:12px;padding:10px 20px;
   font-size:.88em;color:#f3f4f6;z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);
-  pointer-events:none;white-space:nowrap;}}
-.toast.show{{transform:translateX(-50%) translateY(0);}}
+  pointer-events:none;white-space:nowrap;}}}}
+.toast.show{{{{transform:translateX(-50%) translateY(0);}}}}
 </style>
 </head>
 <body>
@@ -585,7 +585,7 @@ var MEMBERS = [
   "Austin Jones","Joel Smith","Elana Davis","Michael Brown","Sarah Wilson",
   "David Lee","Jennifer Taylor","Robert Martinez","Linda Anderson","James Thomas"
 ];
-var tally = {{}};
+var tally = {{{{}}}};
 var fullTranscript = "";
 var recognition = null;
 var timerInterval = null;
@@ -601,41 +601,41 @@ var KW_TYFCB    = ["thank you for closed business","tyfcb","closed business","cl
 var KW_REF      = ["referral","pass a referral","passing a referral","referred","i have a referral","i'm passing","i am passing","giving a referral","pass referral"];
 var KW_TEST     = ["testimonial","give a testimonial","giving a testimonial","would like to recognize","want to recognize","shout out","shoutout","recognize"];
 
-function detectActivity(t) {{
+function detectActivity(t) {{{{
   var s = t.toLowerCase();
   for(var i=0;i<KW_TYFCB.length;i++) if(s.indexOf(KW_TYFCB[i])>-1) return "tyfcb";
   for(var i=0;i<KW_REF.length;i++)   if(s.indexOf(KW_REF[i])>-1)   return "referral";
   for(var i=0;i<KW_TEST.length;i++)  if(s.indexOf(KW_TEST[i])>-1)  return "testimonial";
   return null;
-}}
+}}}}
 
-function detectMember(t) {{
+function detectMember(t) {{{{
   var s = t.toLowerCase();
   var best = null; var bestScore = 0;
-  for(var i=0;i<MEMBERS.length;i++) {{
+  for(var i=0;i<MEMBERS.length;i++) {{{{
     var parts = MEMBERS[i].toLowerCase().split(" ");
     var score = 0;
-    for(var j=0;j<parts.length;j++) {{
+    for(var j=0;j<parts.length;j++) {{{{
       if(parts[j].length > 2 && s.indexOf(parts[j]) > -1) score += parts[j].length;
-    }}
-    if(score > bestScore) {{ bestScore = score; best = MEMBERS[i]; }}
-  }}
+    }}}}
+    if(score > bestScore) {{{{ bestScore = score; best = MEMBERS[i]; }}}}
+  }}}}
   return bestScore >= 3 ? best : null;
-}}
+}}}}
 
 // ─── Init ─────────────────────────────────────────────────────────────────
-function initTally() {{
-  tally = {{}};
-  MEMBERS.forEach(function(m) {{
-    tally[m] = {{tyfcb:0,referral:0,testimonial:0,notes:""}};
-  }});
-}}
+function initTally() {{{{
+  tally = {{{{}}}};
+  MEMBERS.forEach(function(m) {{{{
+    tally[m] = {{{{tyfcb:0,referral:0,testimonial:0,notes:""}}}};
+  }}}});
+}}}}
 
-function initGrid() {{
+function initGrid() {{{{
   var grid = document.getElementById("membersGrid");
   grid.innerHTML = "";
-  MEMBERS.forEach(function(m) {{
-    var initials = m.split(" ").map(function(w){{return w[0];}}).join("").substring(0,2).toUpperCase();
+  MEMBERS.forEach(function(m) {{{{
+    var initials = m.split(" ").map(function(w){{{{return w[0];}}}}).join("").substring(0,2).toUpperCase();
     var card = document.createElement("div");
     card.className = "member-card";
     card.id = "card-" + m.replace(/\s+/g,"_");
@@ -645,15 +645,15 @@ function initGrid() {{
       '<div class="member-nm">'+m.split(" ")[0]+'<br><span style="font-size:.75em;color:#6b7280;font-weight:400;">'+m.split(" ").slice(1).join(" ")+'</span></div>'+
       '<div class="member-badges" id="badges-'+m.replace(/\s+/g,"_")+'"></div>'+
       '<div class="speaking-wave"><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div></div>';
-    card.onclick = (function(name){{return function(){{
+    card.onclick = (function(name){{{{return function(){{{{
       pendingSpeaker = name; currentSpeaker = name;
       showPrompt(name, "");
-    }};}})(m);
+    }}}};}}}})(m);
     grid.appendChild(card);
-  }});
-}}
+  }}}});
+}}}}
 
-function updateCard(name) {{
+function updateCard(name) {{{{
   var key = name.replace(/\s+/g,"_");
   var d = tally[name];
   if(!d) return;
@@ -669,50 +669,50 @@ function updateCard(name) {{
   bg.innerHTML = html;
   // Flash animation
   var card = document.getElementById("card-"+key);
-  if(card) {{ card.classList.add("just-scored"); setTimeout(function(){{card.classList.remove("just-scored");}},650); }}
+  if(card) {{{{ card.classList.add("just-scored"); setTimeout(function(){{{{card.classList.remove("just-scored");}}}},650); }}}}
   updateTotals();
-}}
+}}}}
 
-function updateTotals() {{
+function updateTotals() {{{{
   var t=0,r=0,s=0;
-  Object.keys(tally).forEach(function(k){{
+  Object.keys(tally).forEach(function(k){{{{
     t+=tally[k].tyfcb||0; r+=tally[k].referral||0; s+=tally[k].testimonial||0;
-  }});
+  }}}});
   document.getElementById("totalT").textContent=t;
   document.getElementById("totalR").textContent=r;
   document.getElementById("totalS").textContent=s;
-}}
+}}}}
 
-function setSpeaking(name) {{
-  MEMBERS.forEach(function(m){{
+function setSpeaking(name) {{{{
+  MEMBERS.forEach(function(m){{{{
     var c = document.getElementById("card-"+m.replace(/\s+/g,"_"));
     if(c) c.classList.remove("speaking");
-  }});
-  if(name) {{
+  }}}});
+  if(name) {{{{
     var c = document.getElementById("card-"+name.replace(/\s+/g,"_"));
     if(c) c.classList.add("speaking");
-  }}
-}}
+  }}}}
+}}}}
 
 // ─── Prompt overlay ───────────────────────────────────────────────────────
-function showPrompt(name, text) {{
+function showPrompt(name, text) {{{{
   pendingSpeaker = name;
   document.getElementById("promptSpeaker").textContent = name;
   document.getElementById("actionPrompt").classList.add("visible");
-}}
-function dismissPrompt() {{
+}}}}
+function dismissPrompt() {{{{
   document.getElementById("actionPrompt").classList.remove("visible");
   pendingSpeaker = null;
-}}
-function confirmActivity(type) {{
+}}}}
+function confirmActivity(type) {{{{
   if(!pendingSpeaker) return;
   addScore(pendingSpeaker, type, pendingText);
   dismissPrompt();
-}}
+}}}}
 
 // ─── Scoring ──────────────────────────────────────────────────────────────
-function addScore(name, type, text) {{
-  if(!tally[name]) tally[name]={{tyfcb:0,referral:0,testimonial:0,notes:""}};
+function addScore(name, type, text) {{{{
+  if(!tally[name]) tally[name]={{{{tyfcb:0,referral:0,testimonial:0,notes:""}}}};
   tally[name][type]++;
   if(text) tally[name].notes += text.substring(0,50)+"... ";
   updateCard(name);
@@ -720,20 +720,20 @@ function addScore(name, type, text) {{
   showToast("&#127942; "+name.split(" ")[0]+" &mdash; "+emoji+" recorded!");
   appendTranscript(name, "["+type.toUpperCase()+" LOGGED]", "action");
   updateDetected(name, type);
-}}
+}}}}
 
 // ─── Detected pills ───────────────────────────────────────────────────────
-function updateDetected(name, type) {{
+function updateDetected(name, type) {{{{
   var pills = document.getElementById("detectedPills");
   var cls = type==="tyfcb"?"pill-tyfcb":type==="referral"?"pill-ref":"pill-test";
   var lbl = type==="tyfcb"?"&#127881; TYFCB":type==="referral"?"&#128279; Referral":"&#11088; Testimonial";
   pills.innerHTML =
     '<span class="detected-pill pill-name">&#127908; '+name+'</span> &nbsp;'+
     '<span class="detected-pill '+cls+'">'+lbl+'</span>';
-}}
+}}}}
 
 // ─── Transcript ───────────────────────────────────────────────────────────
-function appendTranscript(speaker, text, type) {{
+function appendTranscript(speaker, text, type) {{{{
   var box = document.getElementById("transcriptBox");
   if(box.textContent.indexOf("Waiting")>-1) box.innerHTML="";
   var cls = type==="action"?"t-"+type:"t-final";
@@ -745,8 +745,8 @@ function appendTranscript(speaker, text, type) {{
   box.appendChild(line);
   box.scrollTop = box.scrollHeight;
   fullTranscript += (speaker||"?") + ": " + text + "\n";
-}}
-function setInterim(speaker, text) {{
+}}}}
+function setInterim(speaker, text) {{{{
   var box = document.getElementById("transcriptBox");
   if(box.textContent.indexOf("Waiting")>-1) box.innerHTML="";
   var ex = box.querySelector(".t-interim-line");
@@ -756,122 +756,122 @@ function setInterim(speaker, text) {{
   line.innerHTML = '<span class="t-speaker">'+(speaker||"...")+':</span> <span class="t-interim">'+text+'</span>';
   box.appendChild(line);
   box.scrollTop = box.scrollHeight;
-}}
+}}}}
 
 // ─── Timer ────────────────────────────────────────────────────────────────
-function fmt(s){{return Math.floor(s/60)+":"+(s%60<10?"0":"")+s%60;}}
+function fmt(s){{{{return Math.floor(s/60)+":"+(s%60<10?"0":"")+s%60;}}}}
 
 // ─── Start recording ──────────────────────────────────────────────────────
-function startRec() {{
+function startRec() {{{{
   isRecording=true; isPaused=false;
   document.getElementById("recDot").classList.add("live");
   document.getElementById("btnStart").disabled=true;
   document.getElementById("btnStop").disabled=false;
   document.getElementById("btnStop").classList.add("active");
   document.getElementById("btnStop").textContent="\u23F8 Pause";
-  timerInterval=setInterval(function(){{elapsed++;document.getElementById("timer").textContent=fmt(elapsed);}},1000);
+  timerInterval=setInterval(function(){{{{elapsed++;document.getElementById("timer").textContent=fmt(elapsed);}}}},1000);
   startSR();
   document.getElementById("detectedPills").innerHTML='<span style="color:#4ade80;font-size:.85em;">&#9679; Recording live...</span>';
-}}
+}}}}
 
-function startSR() {{
+function startSR() {{{{
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){{
+  if(!SR){{{{
     document.getElementById("transcriptBox").textContent="Speech recognition requires Chrome. Use the manual card tap below.";
     return;
-  }}
+  }}}}
   recognition=new SR();
   recognition.continuous=true; recognition.interimResults=true; recognition.lang="en-US";
-  recognition.onresult=function(e){{
+  recognition.onresult=function(e){{{{
     var interim="";
-    for(var i=e.resultIndex;i<e.results.length;i++){{
+    for(var i=e.resultIndex;i<e.results.length;i++){{{{
       var txt=e.results[i][0].transcript.trim();
-      if(e.results[i].isFinal){{
+      if(e.results[i].isFinal){{{{
         var spk=detectMember(txt);
         var act=detectActivity(txt);
-        if(spk){{currentSpeaker=spk;setSpeaking(spk);}}
-        if(act&&currentSpeaker){{
+        if(spk){{{{currentSpeaker=spk;setSpeaking(spk);}}}}
+        if(act&&currentSpeaker){{{{
           pendingSpeaker=currentSpeaker; pendingText=txt;
           addScore(currentSpeaker,act,txt);
-        }} else if(spk&&!act){{
+        }}}} else if(spk&&!act){{{{
           pendingSpeaker=spk; pendingText=txt;
           showPrompt(spk,txt);
-        }}
+        }}}}
         appendTranscript(currentSpeaker||"Unknown",txt,"final");
         setInterim(null,"");
-      }}else{{interim=txt;}}
-    }}
+      }}}}else{{{{interim=txt;}}}}
+    }}}}
     if(interim)setInterim(currentSpeaker||"...",interim);
-  }};
-  recognition.onerror=function(err){{
+  }}}};
+  recognition.onerror=function(err){{{{
     if(err.error!=="no-speech")
       document.getElementById("detectedPills").innerHTML='<span style="color:#f87171;">Mic error: '+err.error+'. Check permissions.</span>';
-  }};
-  recognition.onend=function(){{if(isRecording&&!isPaused)recognition.start();}};
+  }}}};
+  recognition.onend=function(){{{{if(isRecording&&!isPaused)recognition.start();}}}};
   recognition.start();
-}}
+}}}}
 
 // ─── Pause / resume ───────────────────────────────────────────────────────
-function togglePause() {{
+function togglePause() {{{{
   if(!isRecording)return;
-  if(!isPaused){{
+  if(!isPaused){{{{
     isPaused=true;
-    if(recognition){{try{{recognition.stop();}}catch(e){{}}}}
+    if(recognition){{{{try{{{{recognition.stop();}}}}catch(e){{{{}}}}}}}}
     clearInterval(timerInterval);
     document.getElementById("recDot").classList.remove("live");
     document.getElementById("btnStop").textContent="\u25B6 Resume";
     document.getElementById("btnStop").classList.remove("active");
     setSpeaking(null);
     showToast("Recording paused");
-  }}else{{
+  }}}}else{{{{
     isPaused=false;
     document.getElementById("recDot").classList.add("live");
     document.getElementById("btnStop").textContent="\u23F8 Pause";
     document.getElementById("btnStop").classList.add("active");
-    timerInterval=setInterval(function(){{elapsed++;document.getElementById("timer").textContent=fmt(elapsed);}},1000);
+    timerInterval=setInterval(function(){{{{elapsed++;document.getElementById("timer").textContent=fmt(elapsed);}}}},1000);
     startSR();
     showToast("Recording resumed");
-  }}
-}}
+  }}}}
+}}}}
 
 // ─── Add member ───────────────────────────────────────────────────────────
-function addMember() {{
+function addMember() {{{{
   var inp=document.getElementById("addInp");
   var name=inp.value.trim();
-  if(!name||MEMBERS.indexOf(name)>-1){{inp.value="";return;}}
+  if(!name||MEMBERS.indexOf(name)>-1){{{{inp.value="";return;}}}}
   MEMBERS.push(name);
-  tally[name]={{tyfcb:0,referral:0,testimonial:0,notes:""}};
+  tally[name]={{{{tyfcb:0,referral:0,testimonial:0,notes:""}}}};
   inp.value="";
   initGrid();
   showToast("Added: "+name);
-}}
+}}}}
 
 // ─── Toast ────────────────────────────────────────────────────────────────
-function showToast(msg) {{
+function showToast(msg) {{{{
   var t=document.getElementById("toast");
   t.innerHTML=msg; t.classList.add("show");
-  setTimeout(function(){{t.classList.remove("show");}},2800);
-}}
+  setTimeout(function(){{{{t.classList.remove("show");}}}},2800);
+}}}}
 
 // ─── End meeting ──────────────────────────────────────────────────────────
-function endMeeting() {{
-  if(isRecording) {{ isRecording=false; isPaused=false; clearInterval(timerInterval); }}
-  if(recognition){{try{{recognition.stop();}}catch(e){{}}recognition=null;}}
+function endMeeting() {{{{
+  if(isRecording) {{{{ isRecording=false; isPaused=false; clearInterval(timerInterval); }}}}
+  if(recognition){{{{try{{{{recognition.stop();}}}}catch(e){{{{}}}}recognition=null;}}}}
   document.getElementById("recDot").classList.remove("live");
   document.getElementById("btnStart").disabled=false;
   document.getElementById("btnStop").disabled=true;
   setSpeaking(null);
-  var tallyArr=MEMBERS.map(function(m){{
-    var d=tally[m]||{{tyfcb:0,referral:0,testimonial:0,notes:""}};
-    return{{name:m,tyfcb:d.tyfcb,referral:d.referral,testimonial:d.testimonial,notes:d.notes}};
-  }}).filter(function(r){{return r.tyfcb+r.referral+r.testimonial>0;}});
-  var payload=JSON.stringify({{tally:tallyArr,transcript:fullTranscript,duration:fmt(elapsed)}});
-  try{{sessionStorage.setItem("bni_report",payload);}}catch(e){{}}
-  window.parent.postMessage({{type:"bni_end",payload:payload}},"*");
+  var tallyArr=MEMBERS.map(function(m){{{{
+    var d=tally[m]||{{{{tyfcb:0,referral:0,testimonial:0,notes:""}}}};
+    return{{{{name:m,tyfcb:d.tyfcb,referral:d.referral,testimonial:d.testimonial,notes:d.notes}}}};
+  }}}}).filter(function(r){{{{return r.tyfcb+r.referral+r.testimonial>0;}}}});
+  var payload=JSON.stringify({{{{tally:tallyArr,transcript:fullTranscript,duration:fmt(elapsed)}}}});
+  try{{{{sessionStorage.setItem("bni_report",payload);}}}}catch(e){{{{}}}}
+  window.parent.postMessage({{{{type:"bni_end",payload:payload}}}},"*");
   document.getElementById("btnEnd").textContent="\u2714 Report Ready \u2014 Click Send Below";
   document.getElementById("btnEnd").style.background="linear-gradient(135deg,#27ae60,#1e8449)";
   showToast("&#128231; Meeting ended! Scroll down to send the report.");
-}}
+}}}}
 
 // ─── Init ─────────────────────────────────────────────────────────────────
 initTally();
