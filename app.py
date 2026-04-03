@@ -528,9 +528,9 @@ body{{background:var(--bg);color:var(--text);min-height:100vh;padding:12px;}}
 <div class="prompt" id="prompt">
   <div class="ptitle">Heard: <strong id="pspk"></strong> &mdash; What are they reporting?</div>
   <div class="pbtns">
-    <button class="pbtn pb-t" onclick="confirm('tyfcb')">&#127881; Thank You for Closed Business</button>
-    <button class="pbtn pb-r" onclick="confirm('referral')">&#128279; Referral Passed</button>
-    <button class="pbtn pb-s" onclick="confirm('testimonial')">&#11088; Testimonial</button>
+    <button class="pbtn pb-t" onclick="logAct('tyfcb')">&#127881; Thank You for Closed Business</button>
+    <button class="pbtn pb-r" onclick="logAct('referral')">&#128279; Referral Passed</button>
+    <button class="pbtn pb-s" onclick="logAct('testimonial')">&#11088; Testimonial</button>
     <button class="pbtn pb-x" onclick="hidePrompt()">&#215; Dismiss</button>
   </div>
 </div>
@@ -581,13 +581,13 @@ function initAll(){{
   MEMBERS.forEach(function(m){{tally[m]={{t:0,r:0,s:0}};}}); 
   buildGrid();
 }}
-function key(n){{return n.replace(/\s+/g,"_");}}
+function mkey(n){{return n.replace(/\s+/g,"_");}}
 function initials(n){{return n.split(" ").map(function(w){{return w[0];}}).join("").substring(0,2).toUpperCase();}}
 
 function buildGrid(){{
   var g=document.getElementById("mgrid");g.innerHTML="";
   MEMBERS.forEach(function(m){{
-    var k=key(m),ini=initials(m);
+    var k=mkey(m),ini=initials(m);
     var fn=m.split(" ")[0],ln=m.split(" ").slice(1).join(" ");
     var d=document.createElement("div");
     d.className="mc";d.id="mc-"+k;
@@ -603,7 +603,7 @@ function buildGrid(){{
 }}
 
 function updCard(n){{
-  var k=key(n);var d=tally[n];if(!d)return;
+  var k=mkey(n);var d=tally[n];if(!d)return;
   var tot=d.t+d.r+d.s;
   var te=document.getElementById("tot-"+k);if(te)te.textContent=tot||"";
   var bg=document.getElementById("bdg-"+k);if(!bg)return;
@@ -624,7 +624,7 @@ function updScores(){{
   document.getElementById("sS").textContent=s;
 }}
 function setTalking(n){{
-  MEMBERS.forEach(function(m){{var c=document.getElementById("mc-"+key(m));if(c)c.classList.remove("talking");}});
+  MEMBERS.forEach(function(m){{var c=document.getElementById("mc-"+mkey(m));if(c)c.classList.remove("talking");}});
   if(n){{var c=document.getElementById("mc-"+key(n));if(c){{c.classList.add("talking");c.scrollIntoView({{behavior:"smooth",block:"nearest"}});}}}}
 }}
 function showPrompt(n,txt){{
@@ -633,7 +633,7 @@ function showPrompt(n,txt){{
   document.getElementById("prompt").classList.add("on");
 }}
 function hidePrompt(){{document.getElementById("prompt").classList.remove("on");pendSpk=null;}}
-function confirm(type){{if(!pendSpk)return;log(pendSpk,type,pendTxt);hidePrompt();}}
+function logAct(type){{if(!pendSpk)return;log(pendSpk,type,pendTxt);hidePrompt();}}
 function log(n,type,txt){{
   if(!tally[n])tally[n]={{t:0,r:0,s:0}};
   if(type==="tyfcb")tally[n].t++;
