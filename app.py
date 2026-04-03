@@ -556,11 +556,7 @@ function speakMemberWelcome() {
             num_referrals = st.selectbox("How many referrals are you passing?", ["1","2","3","4","5+"], key="num_ref")
             referral_details_list = st.text_area(
                 "Referral details *",
-                placeholder="For each referral: Member you referred TO → Name/Company of the person you referred → Brief reason
-
-Example:
-To: Jane Smith (Insurance) → Referred: Mike Brown at ABC Corp — needs business insurance
-To: Bob Jones (IT) → Referred: Sarah Lee — needs cybersecurity audit",
+                placeholder="List each referral: e.g. To Jane Smith (Insurance) referred Mike Brown at ABC Corp; To Bob Jones (IT) referred Sarah Lee",
                 height=120, key="ref_details"
             )
 
