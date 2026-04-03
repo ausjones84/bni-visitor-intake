@@ -128,13 +128,13 @@ st.markdown("""
 
 # ── BNI Referral Tip of the Day ───────────────────────────────────────────────
 BNI_TIPS = [
-    "💡 **BNI Tip:** The most successful BNI members give referrals before expecting to receive them.",
-    "💡 **BNI Tip:** Your 60-second pitch should be crystal-clear — the easier you make it to refer you, the more referrals you'll receive!",
-    "💡 **BNI Tip:** BNI members generate an average of $50,000+ in new business per year through referrals.",
-    "💡 **BNI Tip:** Givers Gain® — members who give the most referrals consistently receive the most in return.",
-    "💡 **BNI Tip:** Each member holds one seat per profession — securing your seat locks out competitors!",
-    "💡 **BNI Tip:** 1-2-1 meetings with fellow members are the #1 driver of strong referral relationships.",
-    "💡 **BNI Tip:** The average BNI chapter passes over $1 million in referrals each year.",
+    "💡 <strong>BNI Tip:</strong> The most successful BNI members give referrals before expecting to receive them.",
+    "💡 <strong>BNI Tip:</strong> Your 60-second pitch should be crystal-clear — the easier you make it to refer you, the more referrals you'll receive!",
+    "💡 <strong>BNI Tip:</strong> BNI members generate an average of $50,000+ in new business per year through referrals.",
+    "💡 <strong>BNI Tip:</strong> Givers Gain® — members who give the most referrals consistently receive the most in return.",
+    "💡 <strong>BNI Tip:</strong> Each member holds one seat per profession — securing your seat locks out competitors!",
+    "💡 <strong>BNI Tip:</strong> 1-2-1 meetings with fellow members are the #1 driver of strong referral relationships.",
+    "💡 <strong>BNI Tip:</strong> The average BNI chapter passes over $1 million in referrals each year.",
 ]
 random_tip = random.choice(BNI_TIPS)
 
