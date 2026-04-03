@@ -656,7 +656,7 @@ function txAppend(spk,txt,cls){{
   var d=document.createElement("div");
   d.innerHTML='<span class="tsp">'+(spk||"")+':</span> <span class="'+cls+'">'+txt+'</span>';
   b.appendChild(d);b.scrollTop=b.scrollHeight;
-  txFull+=(spk||"")+": "+txt+"\n";
+  txFull+=(spk||"")+": "+txt+String.fromCharCode(10);
 }}
 function setInterim(spk,txt){{
   var b=document.getElementById("txbox");
