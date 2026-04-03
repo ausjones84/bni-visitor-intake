@@ -18,9 +18,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install gspread google-auth
+        run: pip install gspread google-auth gtts
 
-      - name: Send morning Telegram report
+      - name: Send morning Telegram voice + text report
         run: python scheduler/morning_report.py
         env:
           GOOGLE_CREDS: ${{ secrets.GOOGLE_CREDS }}
