@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 import random
 
 st.set_page_config(
-    page_title="BNI Chapter Hub",
+    page_title="BNI Leaders FTL",
     page_icon="\U0001f91d",
     layout="centered"
 )
@@ -91,9 +91,9 @@ div[data-testid="stTabs"] button[data-baseweb="tab"] {
 st.markdown("""
 <div class='hero-wrap' style='text-align:center;padding:10px 0 4px;'>
   <div style='display:inline-block;background:linear-gradient(135deg,#C8102E 0%,#8b0000 100%);
-       color:white;font-size:2.4em;font-weight:900;padding:6px 24px;border-radius:10px;
-       letter-spacing:4px;font-family:Arial,sans-serif;box-shadow:0 4px 16px rgba(200,16,46,.35);'>BNI</div>
-  <h1 style='color:#C8102E;margin:10px 0 2px;font-size:1.85em;'>Chapter Hub</h1>
+       color:white;font-size:1.6em;font-weight:900;padding:8px 28px;border-radius:10px;
+       letter-spacing:3px;font-family:Arial,sans-serif;box-shadow:0 4px 16px rgba(200,16,46,.35);'>BNI Leaders FTL</div>
+  <h2 style='color:#C8102E;margin:8px 0 2px;font-size:1.3em;font-weight:600;letter-spacing:1px;'>Chapter Hub</h2>
   <p style='color:#888;margin:0;font-size:.95em;'>Business Network International &mdash; Where Referrals Are Our Business</p>
 </div>
 """, unsafe_allow_html=True)
