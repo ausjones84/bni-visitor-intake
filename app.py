@@ -794,3 +794,5 @@ initAll();
     </div>
     """, unsafe_allow_html=True)
     st.markdown("""<div class='footer-bar'>&#128274; BNI Leaders FTL Chapter Hub &nbsp;|&nbsp; Reports sent to Austin, Joel &amp; Elena &nbsp;|&nbsp; Powered by <a href='https://mrceesai.com'>MrCeesAI</a></div>""", unsafe_allow_html=True)
+
+# end
